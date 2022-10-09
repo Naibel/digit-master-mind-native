@@ -37,7 +37,7 @@ const HomeModals = ({
   </>
 );
 
-const Home = () => {
+const Home = ({ navigation }: any) => {
   const [digit, setDigit] = useState("");
   const [modalOpened, setModalOpened] = useState<
     "start" | "join" | "htp" | null
@@ -85,6 +85,9 @@ const Home = () => {
         a_digit: digit,
       })
       .then((docRef) => {
+        navigation.navigate("StartGamePlay", {
+          id: docRef.id,
+        });
         console.log(docRef.id);
       })
       .catch((error) => console.error("Error adding Tutorial: ", error));

@@ -14,6 +14,8 @@ export type ModalProps = {
   onDigitChange?: (value: string) => void;
   onBegin?: () => void;
   openGames?: any[];
+  navigation?: any;
+  route?: any;
 };
 
 const Modal = ({ visible, children, onClose }: ModalProps) => (
