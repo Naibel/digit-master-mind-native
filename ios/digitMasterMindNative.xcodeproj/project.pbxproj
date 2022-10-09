@@ -12,8 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		97C50C3F28EA064A00DA3760 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97C50C3E28EA064900DA3760 /* GoogleService-Info.plist */; };
-		97C50C4028EA064A00DA3760 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 97C50C3E28EA064900DA3760 /* GoogleService-Info.plist */; };
+		972F7E5528F31807009B11E5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 972F7E5428F31807009B11E5 /* GoogleService-Info.plist */; };
 		97C50C4328EA07D800DA3760 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 97C50C4228EA07D800DA3760 /* FirebaseAnalytics */; };
 		97C50C4528EA07D800DA3760 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 97C50C4428EA07D800DA3760 /* FirebaseAnalyticsOnDeviceConversion */; };
 		97C50C4728EA07D800DA3760 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 97C50C4628EA07D800DA3760 /* FirebaseAnalyticsSwift */; };
@@ -71,7 +70,7 @@
 		5B7EB9410499542E8C5724F5 /* Pods-digitMasterMindNative-digitMasterMindNativeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-digitMasterMindNative-digitMasterMindNativeTests.debug.xcconfig"; path = "Target Support Files/Pods-digitMasterMindNative-digitMasterMindNativeTests/Pods-digitMasterMindNative-digitMasterMindNativeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = digitMasterMindNative/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-digitMasterMindNative-digitMasterMindNativeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-digitMasterMindNative-digitMasterMindNativeTests.release.xcconfig"; path = "Target Support Files/Pods-digitMasterMindNative-digitMasterMindNativeTests/Pods-digitMasterMindNative-digitMasterMindNativeTests.release.xcconfig"; sourceTree = "<group>"; };
-		97C50C3E28EA064900DA3760 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Desktop/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		972F7E5428F31807009B11E5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D377AC32ECBD7E8698E45116 /* Pods_digitMasterMindNative_digitMasterMindNativeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_digitMasterMindNative_digitMasterMindNativeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -143,7 +142,6 @@
 		13B07FAE1A68108700A75B9A /* digitMasterMindNative */ = {
 			isa = PBXGroup;
 			children = (
-				97C50C3E28EA064900DA3760 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -174,6 +172,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				972F7E5428F31807009B11E5 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* digitMasterMindNative */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* digitMasterMindNativeTests */,
@@ -326,7 +325,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97C50C4028EA064A00DA3760 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,8 +333,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				972F7E5528F31807009B11E5 /* GoogleService-Info.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				97C50C3F28EA064A00DA3760 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

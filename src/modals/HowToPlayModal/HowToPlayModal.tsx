@@ -1,8 +1,8 @@
-import React from 'react';
-import {Text} from 'react-native';
-import Modal, {ModalProps, styles} from '../../components/Modal';
+import React from "react";
+import { Text } from "react-native";
+import { Modal, ModalProps, styles } from "../../components";
 
-const HowToPlay = ({visible, onClose}: ModalProps) => (
+const HowToPlay = ({ visible, onClose }: ModalProps) => (
   <Modal visible={visible} onClose={onClose}>
     <Text style={styles.modalTitle}>How to Play</Text>
     <Text style={styles.modalText}>

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "225882380924",
+    "project_id": "digitmastermindnative",
+    "storage_bucket": "digitmastermindnative.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225882380924:android:239c8696bf3e50ccbb87f9",
+        "android_client_info": {
+          "package_name": "com.digitmastermindnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225882380924-r0gqh7n4h8l9tqg81ofstt7tti5u01bb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3K742Epnjhjpd14yti8zXE-1GbsUEqTg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225882380924-r0gqh7n4h8l9tqg81ofstt7tti5u01bb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "225882380924-p6os8ip5a5cjhraq2jurh5d639ng3t6v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.digitMasterMindNative"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

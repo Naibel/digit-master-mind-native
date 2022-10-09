@@ -1,30 +1,35 @@
-import React, {ReactNode} from 'react';
+import React, { ReactNode } from "react";
 import {
   Modal as RNModal,
   StyleSheet,
   Text,
   Pressable,
   View,
-} from 'react-native';
+} from "react-native";
 
 export type ModalProps = {
   visible: boolean;
   onClose: () => void;
   children?: ReactNode;
+  onDigitChange?: (value: string) => void;
+  onBegin?: () => void;
+  openGames?: any[];
 };
 
-const Modal = ({visible, children, onClose}: ModalProps) => (
+const Modal = ({ visible, children, onClose }: ModalProps) => (
   <RNModal
     animationType="slide"
     transparent={true}
     visible={visible}
-    onRequestClose={onClose}>
+    onRequestClose={onClose}
+  >
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
         {children}
         <Pressable
           style={[styles.button, styles.buttonClose]}
-          onPress={onClose}>
+          onPress={onClose}
+        >
           <Text style={styles.textStyle}>Fermer la fenêtre</Text>
         </Pressable>
       </View>
@@ -35,22 +40,22 @@ const Modal = ({visible, children, onClose}: ModalProps) => (
 export const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 22,
   },
   modalTitle: {
     fontSize: 24,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 20,
   },
   modalView: {
     margin: 20,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: 20,
     padding: 35,
-    alignItems: 'stretch',
-    shadowColor: '#000',
+    alignItems: "stretch",
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: 2,
@@ -63,21 +68,22 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    marginVertical: 5,
   },
   buttonOpen: {
-    backgroundColor: '#F194FF',
+    backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: "#2196F3",
   },
   textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
   },
   modalText: {
     marginBottom: 15,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
 
