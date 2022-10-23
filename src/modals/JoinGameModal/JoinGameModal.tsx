@@ -7,25 +7,25 @@ const JoinGameModal = ({
   visible,
   onClose,
   openGames,
-}: ModalProps) => {
-  return (
-    <Modal visible={visible} onClose={onClose}>
-      <Text style={styles.modalTitle}>Join Game</Text>
-      {openGames &&
-        openGames.map((game) => (
-          <View key={game.id}>
-            <Button
-              onPress={() => {
-                navigation.navigate("StartGamePlay", {
-                  id: game.id,
-                });
-              }}
-              title={game.id}
-            />
-          </View>
-        ))}
-    </Modal>
-  );
-};
+}: ModalProps) => (
+  <Modal visible={visible} onClose={onClose}>
+    <Text style={styles.modalTitle}>Rejoindre une partie</Text>
+    {openGames &&
+      openGames.map((game) => (
+        <View key={game.id}>
+          <Button
+            onPress={() => {
+              navigation.navigate("GameScreen", {
+                id: game.id,
+                mode: "join",
+              });
+              onClose();
+            }}
+            title={game.id}
+          />
+        </View>
+      ))}
+  </Modal>
+);
 
 export default JoinGameModal;

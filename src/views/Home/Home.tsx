@@ -5,6 +5,7 @@ import firestore from "@react-native-firebase/firestore";
 import { HowToPlayModal, JoinGameModal, StartGameModal } from "../../modals";
 
 const HomeModals = ({
+  navigation,
   onClose,
   onBegin,
   onDigitChange,
@@ -13,6 +14,7 @@ const HomeModals = ({
   joinModalVisible,
   htpModalVisible,
 }: {
+  navigation: any;
   onClose: () => void;
   onBegin: () => void;
   onDigitChange: (value: string) => void;
@@ -29,6 +31,7 @@ const HomeModals = ({
       onClose={onClose}
     />
     <JoinGameModal
+      navigation={navigation}
       openGames={openGames}
       visible={joinModalVisible}
       onClose={onClose}
@@ -85,8 +88,9 @@ const Home = ({ navigation }: any) => {
         a_digit: digit,
       })
       .then((docRef) => {
-        navigation.navigate("StartGamePlay", {
+        navigation.navigate("GameScreen", {
           id: docRef.id,
+          mode: "start",
         });
         console.log(docRef.id);
       })
@@ -96,6 +100,7 @@ const Home = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.centeredView}>
       <HomeModals
+        navigation={navigation}
         onClose={() => setModalOpened(null)}
         onBegin={startGame}
         onDigitChange={setDigit}
@@ -109,19 +114,19 @@ const Home = ({ navigation }: any) => {
           style={[styles.button, styles.buttonOpen]}
           onPress={() => setModalOpened("start")}
         >
-          <Text style={styles.textStyle}>Start Game</Text>
+          <Text style={styles.textStyle}>Commencer une partie</Text>
         </Pressable>
         <Pressable
           style={[styles.button, styles.buttonOpen]}
           onPress={() => setModalOpened("join")}
         >
-          <Text style={styles.textStyle}>Join Game</Text>
+          <Text style={styles.textStyle}>Rejoindre une partie</Text>
         </Pressable>
         <Pressable
           style={[styles.button, styles.buttonOpen]}
           onPress={() => setModalOpened("htp")}
         >
-          <Text style={styles.textStyle}>How To Play</Text>
+          <Text style={styles.textStyle}>Comment jouer ?</Text>
         </Pressable>
       </View>
     </SafeAreaView>

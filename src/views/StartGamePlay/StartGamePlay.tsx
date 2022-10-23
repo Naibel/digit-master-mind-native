@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import {
+  ActivityIndicator,
+  Button,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import usePlay from "../../hooks/usePlay";
 import firestore from "@react-native-firebase/firestore";
 import { DigitInput } from "../../components";
 
-const StartGamePlay = ({ route, navigation }: any) => {
+const StartGamePlay = ({ route }: any) => {
   const { play } = usePlay();
 
   const [finished, setFinished] = useState<boolean>(false);
@@ -73,7 +79,6 @@ const StartGamePlay = ({ route, navigation }: any) => {
     return () => {
       unsubscribe();
     };
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -97,34 +102,42 @@ const StartGamePlay = ({ route, navigation }: any) => {
         turn: "b",
       })
       .then(() => {
-        // setAttempt('');
-        // setTimeleft(10);
-        // setDisabled(false);
+        setAttempt("");
+        setTimeleft(10);
+        setDisabled(false);
       });
   };
 
   return (
-    <View>
-      <Text>Game Play</Text>
-      <Text>Your number is: {currentGame.a_digit}</Text>
+    <View style={styles.content}>
+      <Text style={styles.title}>Votre session de jeu</Text>
+      <Text style={styles.subtitle}>Tour : {turn}</Text>
+      <Text style={styles.subtitle}>Votre numéro est :</Text>
+      <Text style={styles.title}>{currentGame.a_digit}</Text>
       {finished && (
         <View>
-          {currentGame.a_win ? <Text>you won</Text> : <Text>you lost</Text>}
+          {currentGame.a_win ? (
+            <Text>Vous avez gagné !</Text>
+          ) : (
+            <Text>Sapristi, t'as perdu !</Text>
+          )}
         </View>
       )}
       {!finished && (
         <>
           {currentGame.isOpen ? (
             <View>
-              <Text>Waiting</Text>
+              <Text>En attente d'un autre joueur...</Text>
+              <ActivityIndicator size="large" color="grey" />
             </View>
           ) : (
             <View>
-              <Text>il vous reste : {timeleft}</Text>
+              <Text>Il vous reste {timeleft} tentatives.</Text>
               {/* <Progress value={timeleft * 10} /> */}
               {currentGame.a_attempts?.map((a: any, index: number) => (
                 <Text key={index}>
-                  {index + 1}__{a.attempt} : {a.bulls} taureau et {a.cows} vache
+                  {index + 1}__{a.attempt} : {a.bulls} taureau(x) à et {a.cows}{" "}
+                  vache(s)
                 </Text>
               ))}
               <View>
@@ -144,5 +157,22 @@ const StartGamePlay = ({ route, navigation }: any) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  content: {
+    flex: 1,
+    alignItems: "center",
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
+  subtitle: {
+    fontSize: 18,
+    marginBottom: 5,
+  },
+});
 
 export default StartGamePlay;
