@@ -194,21 +194,19 @@ const GameScreen = ({ route }: any) => {
             </View>
           ) : (
             <View>
-              {turn && (
+              {yourTurn && (
                 <Text style={styles.text}>
-                  Il vous reste {timeleft} secondes.
+                  Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
                 </Text>
               )}
               {/* <Progress value={timeleft * 10} /> */}
-              <View style={styles.attemptsView}>
-                <Attempts
-                  userData={
-                    mode === "join"
-                      ? currentGame?.b_attempts
-                      : currentGame?.a_attempts
-                  }
-                />
-              </View>
+              <Attempts
+                userData={
+                  mode === "join"
+                    ? currentGame?.b_attempts
+                    : currentGame?.a_attempts
+                }
+              />
 
               <View>
                 <DigitInput onDigitChange={setAttempt} />
@@ -239,12 +237,50 @@ export default GameScreen;
 const Attempts = ({ userData }: { userData: any }) => {
   if (!userData) return null;
   return userData.map((attempt: any, index: number) => (
-    <Text style={styles.attempts} key={index}>
-      {index + 1} : {attempt.attempt} : {attempt.bulls} taureau(x) à et{" "}
-      {attempt.cows} vache(s)
-    </Text>
+    <View key={index} style={attempsStyles.attemptsView}>
+      <View style={attempsStyles.numberView}>
+        <Text style={attempsStyles.number}>{attempt.attempt} </Text>
+      </View>
+      <View style={{ flexDirection: "row" }}>
+        <Text style={attempsStyles.bulls}>
+          <Text style={{ fontWeight: "bold" }}>{attempt.bulls}</Text> taureau
+          {attempt.bulls > 1 && "x"}
+        </Text>
+        <Text> et </Text>
+        <Text style={attempsStyles.cows}>
+          <Text style={{ fontWeight: "bold" }}>{attempt.cows}</Text> vache
+          {attempt.cows > 1 && "s"}
+        </Text>
+      </View>
+    </View>
   ));
 };
+
+const attempsStyles = StyleSheet.create({
+  attemptsView: {
+    textAlign: "center",
+    marginVertical: 10,
+    flexDirection: "row",
+    alignContent: "space-around",
+    alignItems: "center",
+  },
+  attempts: {
+    textAlign: "center",
+    marginVertical: 5,
+  },
+  bulls: {
+    color: "brown",
+  },
+  cows: {
+    color: "green",
+  },
+  numberView: {
+    flex: 1,
+  },
+  number: {
+    fontSize: 24,
+  },
+});
 
 const styles = StyleSheet.create({
   content: {
@@ -252,14 +288,6 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     textAlign: "center",
     padding: 20,
-  },
-  attemptsView: {
-    textAlign: "center",
-    marginVertical: 20,
-  },
-  attempts: {
-    textAlign: "center",
-    marginVertical: 5,
   },
   title: {
     fontSize: 24,
