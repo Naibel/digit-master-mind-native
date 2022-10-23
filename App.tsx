@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { GameScreen, Home, JoinGamePlay, StartGamePlay } from "./src/views";
+import { GameScreen, Home } from "./src/views";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,8 +18,6 @@ const App = () => (
         options={{ title: "Digit MasterMind" }}
       />
       <Stack.Screen name="GameScreen" component={GameScreen} />
-      <Stack.Screen name="StartGamePlay" component={StartGamePlay} />
-      <Stack.Screen name="JoinGamePlay" component={JoinGamePlay} />
     </Stack.Navigator>
   </NavigationContainer>
 );
