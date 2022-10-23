@@ -5,11 +5,34 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run iOS Hermes - Experimental",
+      "name": "Debug iOS",
+      "request": "launch",
+      "type": "reactnative",
+      "cwd": "${workspaceFolder}",
+      "platform": "ios",
+      "scheme": "dev",
+      "target": "iPhone 14"
+    },
+    {
+      "name": "Run Android Hermes - Experimental",
       "request": "launch",
       "type": "reactnativedirect",
       "cwd": "${workspaceFolder}",
       "enableDebug": false,
+      "platform": "android"
+    },
+    {
+      "name": "Debug Android Hermes - Experimental",
+      "request": "launch",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
+      "platform": "android"
+    },
+    {
+      "name": "Run iOS Hermes - Experimental",
+      "request": "launch",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
       "platform": "ios"
     },
     {
