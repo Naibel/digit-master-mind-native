@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Pressable, Text } from "react-native";
+import { Button, Pressable, StyleSheet, Text } from "react-native";
 import { DigitInput, Modal, ModalProps, styles } from "../../components";
 
 const StartGameModal = ({
@@ -23,20 +23,32 @@ const StartGameModal = ({
 
   return (
     <Modal visible={visible} onClose={onModalClose}>
-      <Text style={styles.modalTitle}>Start Game</Text>
-      <Text>Choose a 4-digit number</Text>
-      <Text>All the digits are different.</Text>
-      <Text>Secret number cannot start with zero.</Text>
+      <Text style={styles.modalTitle}>Démarrer une partie</Text>
+      <Text style={customStyles.text}>
+        1 - Choisissez un nombre à quatres chiffres
+      </Text>
+      <Text style={customStyles.text}>
+        2 - Tous les chiffres doivent être différents.
+      </Text>
+      <Text style={customStyles.text}>
+        3 - Le nombre ne doit pas commencer par zéro
+      </Text>
       <DigitInput onDigitChange={onChange} />
-      <Pressable
+      <Button
         disabled={value.length < 4}
-        style={[styles.button, styles.buttonClose]}
         onPress={onBegin}
-      >
-        <Text style={styles.textStyle}>Démarrer la partie</Text>
-      </Pressable>
+        title="Démarrer la partie"
+      ></Button>
     </Modal>
   );
 };
+
+export const customStyles = StyleSheet.create({
+  text: {
+    textAlign: "center",
+    marginVertical: 5,
+    fontWeight: "bold",
+  },
+});
 
 export default StartGameModal;

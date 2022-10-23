@@ -27,13 +27,13 @@ const Modal = ({ visible, children, onClose }: ModalProps) => (
   >
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
-        {children}
         <Pressable
           style={[styles.button, styles.buttonClose]}
           onPress={onClose}
         >
-          <Text style={styles.textStyle}>Fermer la fenêtre</Text>
+          <Text style={styles.icon}>X</Text>
         </Pressable>
+        <View style={styles.content}>{children}</View>
       </View>
     </View>
   </RNModal>
@@ -44,7 +44,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
   },
   modalTitle: {
     fontSize: 24,
@@ -55,8 +54,8 @@ export const styles = StyleSheet.create({
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,
-    padding: 35,
-    alignItems: "stretch",
+    padding: 15,
+    alignItems: "flex-end",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -65,6 +64,10 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
+  },
+  content: {
+    padding: 20,
+    alignItems: "stretch",
   },
   button: {
     borderRadius: 20,
@@ -76,7 +79,12 @@ export const styles = StyleSheet.create({
     backgroundColor: "#F194FF",
   },
   buttonClose: {
-    backgroundColor: "#2196F3",
+    padding: 0,
+    marginVertical: 0,
+    backgroundColor: "transparent",
+  },
+  icon: {
+    fontSize: 24,
   },
   textStyle: {
     color: "white",

@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Pressable,
+  Button,
   StyleSheet,
   Text,
   View,
 } from "react-native";
-import { DigitInput, styles as InputStyles } from "../../components";
+import { DigitInput } from "../../components";
 import usePlay from "../../hooks/usePlay";
 import firestore from "@react-native-firebase/firestore";
 import { StartGameModal } from "../../modals";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const GameScreen = ({ route }: any) => {
   const { play } = usePlay();
@@ -19,7 +20,7 @@ const GameScreen = ({ route }: any) => {
   const [timeleft, setTimeleft] = useState<number>(10);
   const [turn, setTurn] = useState<string>("");
   const [attempt, setAttempt] = useState<string>("");
-  const [choosen, setChoosen] = useState<string>("");
+  const [chosenNumber, setChosenNumber] = useState<string>("");
   const [currentGame, setCurrentGame] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -101,7 +102,7 @@ const GameScreen = ({ route }: any) => {
   const startGame = () => {
     games.doc(id).update({
       isOpen: false,
-      b_digit: choosen,
+      b_digit: chosenNumber,
     });
     setIsModalOpen(false);
   };
@@ -152,25 +153,35 @@ const GameScreen = ({ route }: any) => {
     }
   };
 
+  const notYourTurn =
+    (mode === "join" && turn === "a") || (mode === "start" && turn === "b");
+  const yourTurn =
+    (mode === "start" && turn === "a") || (mode === "join" && turn === "b");
+
+  const getTurnMessage = () => {
+    if (notYourTurn) return "C'est le tour de l'autre !";
+    if (yourTurn) return "C'est ton tour !";
+  };
+
   return (
-    <View style={styles.content}>
+    <SafeAreaView style={styles.content}>
       <Text style={styles.title}>
         {mode === "join"
-          ? "La session de jeu d'un utilisateur :"
+          ? "La session de jeu d'un utilisateur"
           : "Votre session de jeu"}
       </Text>
       <Text style={styles.subtitle}>Votre numéro est : </Text>
       <Text style={styles.title}>
         {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
       </Text>
-      <Text style={styles.subtitle}>Tour : {turn}</Text>
+      {turn && <Text style={styles.subtitle}>{getTurnMessage()}</Text>}
       {finished && (
         <View>
           {(mode === "join" && currentGame.b_win) ||
           (mode === "start" && currentGame.a_win) ? (
-            <Text>Vous avez gagné !</Text>
+            <Text style={styles.title}>Vous avez gagné !</Text>
           ) : (
-            <Text>Sapristi, t'as perdu !</Text>
+            <Text style={styles.title}>Sapristi, t'as perdu !</Text>
           )}
         </View>
       )}
@@ -178,29 +189,34 @@ const GameScreen = ({ route }: any) => {
         <>
           {mode === "start" && currentGame.isOpen ? (
             <View>
-              <Text>En attente d'un autre joueur...</Text>
+              <Text style={styles.text}>En attente d'un autre joueur...</Text>
               <ActivityIndicator size="large" color="grey" />
             </View>
           ) : (
             <View>
-              <Text>Il vous reste {timeleft} tentatives.</Text>
+              {turn && (
+                <Text style={styles.text}>
+                  Il vous reste {timeleft} secondes.
+                </Text>
+              )}
               {/* <Progress value={timeleft * 10} /> */}
-              <Attempts
-                userData={
-                  mode === "join"
-                    ? currentGame?.b_attempts
-                    : currentGame?.a_attempts
-                }
-              />
+              <View style={styles.attemptsView}>
+                <Attempts
+                  userData={
+                    mode === "join"
+                      ? currentGame?.b_attempts
+                      : currentGame?.a_attempts
+                  }
+                />
+              </View>
+
               <View>
                 <DigitInput onDigitChange={setAttempt} />
-                <Pressable
-                  disabled={attempt.length !== 4 || finished || disabled}
-                  style={[InputStyles.button, InputStyles.buttonClose]}
+                <Button
+                  disabled={attempt.length !== 4 || finished || notYourTurn}
                   onPress={handleAttempt}
-                >
-                  <Text style={InputStyles.textStyle}>Go</Text>
-                </Pressable>
+                  title="Valider"
+                />
               </View>
             </View>
           )}
@@ -208,13 +224,13 @@ const GameScreen = ({ route }: any) => {
       )}
       {mode === "join" && (
         <StartGameModal
-          onDigitChange={setChoosen}
+          onDigitChange={setChosenNumber}
           onBegin={startGame}
           visible={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         />
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -223,8 +239,8 @@ export default GameScreen;
 const Attempts = ({ userData }: { userData: any }) => {
   if (!userData) return null;
   return userData.map((attempt: any, index: number) => (
-    <Text key={index}>
-      {index + 1}__{attempt.attempt} : {attempt.bulls} taureau(x) à et{" "}
+    <Text style={styles.attempts} key={index}>
+      {index + 1} : {attempt.attempt} : {attempt.bulls} taureau(x) à et{" "}
       {attempt.cows} vache(s)
     </Text>
   ));
@@ -237,6 +253,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     padding: 20,
   },
+  attemptsView: {
+    textAlign: "center",
+    marginVertical: 20,
+  },
+  attempts: {
+    textAlign: "center",
+    marginVertical: 5,
+  },
   title: {
     fontSize: 24,
     marginBottom: 20,
@@ -246,6 +270,9 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     marginBottom: 5,
+    textAlign: "center",
+  },
+  text: {
     textAlign: "center",
   },
 });

@@ -92,6 +92,7 @@ const Home = ({ navigation }: any) => {
           id: docRef.id,
           mode: "start",
         });
+        setModalOpened(null);
         console.log(docRef.id);
       })
       .catch((error) => console.error("Error adding Tutorial: ", error));
@@ -110,6 +111,7 @@ const Home = ({ navigation }: any) => {
         htpModalVisible={modalOpened === "htp"}
       />
       <View style={styles.menu}>
+        <Text style={styles.title}>Digit Mastermind</Text>
         <Pressable
           style={[styles.button, styles.buttonOpen]}
           onPress={() => setModalOpened("start")}
@@ -137,6 +139,11 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     backgroundColor: "#b8e994",
+  },
+  title: {
+    color: "teal",
+    fontSize: 36,
+    textAlign: "center",
   },
   menu: {
     padding: 20,
