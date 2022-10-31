@@ -9,7 +9,16 @@ const DigitInput = ({
   const [value, setValue] = useState("");
 
   const onChanged = (text: string) => {
-    if ((value.length === 0 && text === "0") || text.match(/[^0-9]/g)) {
+    const lastEnteredValue = text[text.length - 1];
+    //This test will only launches if you add a new number, not when you remove one
+    const isThereAlreadyThisValue =
+      text.length > value.length && value.indexOf(lastEnteredValue) > -1;
+
+    if (
+      (value.length === 0 && text === "0") ||
+      isThereAlreadyThisValue ||
+      text.match(/[^0-9]/g)
+    ) {
       return false;
     }
     setValue(text);
