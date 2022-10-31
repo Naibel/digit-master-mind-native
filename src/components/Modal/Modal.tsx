@@ -31,7 +31,7 @@ const Modal = ({ visible, children, onClose }: ModalProps) => (
           style={[styles.button, styles.buttonClose]}
           onPress={onClose}
         >
-          <Text style={styles.icon}>X</Text>
+          <Text style={styles.icon}>&times;</Text>
         </Pressable>
         <View style={styles.content}>{children}</View>
       </View>
@@ -44,17 +44,20 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "rgba(0,0,0,0.3)",
   },
   modalTitle: {
     fontSize: 24,
     textAlign: "center",
     marginBottom: 20,
+    color: "#7A693C",
   },
   modalView: {
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: "#F9E5B4",
     borderRadius: 20,
-    padding: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     alignItems: "flex-end",
     shadowColor: "#000",
     shadowOffset: {
@@ -84,7 +87,8 @@ export const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
   icon: {
-    fontSize: 24,
+    fontSize: 34,
+    color: "#7A693C",
   },
   textStyle: {
     color: "white",
@@ -94,6 +98,7 @@ export const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+    color: "#7A693C",
   },
 });
 

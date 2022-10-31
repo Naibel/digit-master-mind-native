@@ -9,7 +9,7 @@ const JoinGameModal = ({
   openGames,
 }: ModalProps) => (
   <Modal visible={visible} onClose={onClose}>
-    <Text style={styles.modalTitle}>Rejoindre une partie</Text>
+    <Text style={styles.modalTitle}>Choisis la partie à rejoindre</Text>
     {openGames &&
       openGames.map((game) => (
         <View key={game.id}>

@@ -111,25 +111,34 @@ const Home = ({ navigation }: any) => {
         htpModalVisible={modalOpened === "htp"}
       />
       <View style={styles.menu}>
-        <Text style={styles.title}>Digit Mastermind</Text>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalOpened("start")}
-        >
-          <Text style={styles.textStyle}>Commencer une partie</Text>
-        </Pressable>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalOpened("join")}
-        >
-          <Text style={styles.textStyle}>Rejoindre une partie</Text>
-        </Pressable>
-        <Pressable
-          style={[styles.button, styles.buttonOpen]}
-          onPress={() => setModalOpened("htp")}
-        >
-          <Text style={styles.textStyle}>Comment jouer ?</Text>
-        </Pressable>
+        <Text style={styles.title}>Vaches et Taureaux</Text>
+        <View style={styles.gameButtons}>
+          <Pressable
+            style={[styles.gameButton]}
+            onPress={() => setModalOpened("start")}
+          >
+            <Text style={styles.gameButtonText}>Commencer une partie</Text>
+          </Pressable>
+          <Pressable
+            style={[styles.gameButton]}
+            onPress={() => setModalOpened("join")}
+          >
+            <Text style={styles.gameButtonText}>Rejoindre une partie</Text>
+          </Pressable>
+        </View>
+        <View>
+          <Pressable
+            style={[styles.ruleButton]}
+            onPress={() => setModalOpened("htp")}
+          >
+            <Text style={styles.ruleButtonText}>Comment jouer ?</Text>
+          </Pressable>
+        </View>
+        <View>
+          <Text style={{ color: "white", textAlign: "center" }}>
+            2022 by Chawki & Dorian
+          </Text>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -138,11 +147,43 @@ const Home = ({ navigation }: any) => {
 const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
-    backgroundColor: "#b8e994",
+    backgroundColor: "#78C6FF",
   },
   title: {
-    color: "teal",
+    color: "white",
     fontSize: 36,
+    textAlign: "center",
+  },
+  gameButtons: {
+    flexDirection: "row",
+  },
+  gameButton: {
+    backgroundColor: "#F9E5B4",
+    flex: 1,
+    paddingVertical: 40,
+    paddingHorizontal: 5,
+    margin: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 6,
+    elevation: 3,
+  },
+  gameButtonText: {
+    color: "#7A693C",
+    textAlign: "center",
+    fontSize: 20,
+  },
+  ruleButton: {
+    backgroundColor: "#1E7E2D",
+    paddingVertical: 15,
+    paddingHorizontal: 5,
+    margin: 10,
+    borderRadius: 6,
+    elevation: 3,
+  },
+  ruleButtonText: {
+    color: "white",
+    fontSize: 24,
     textAlign: "center",
   },
   menu: {

@@ -23,7 +23,9 @@ const StartGameModal = ({
 
   return (
     <Modal visible={visible} onClose={onModalClose}>
-      <Text style={styles.modalTitle}>Démarrer une partie</Text>
+      <Text style={styles.modalTitle}>
+        Allez hop ! Donnez-nous votre numéro secret !
+      </Text>
       <Text style={customStyles.text}>
         1 - Choisissez un nombre à quatres chiffres
       </Text>
@@ -37,7 +39,7 @@ const StartGameModal = ({
       <Button
         disabled={value.length < 4}
         onPress={onBegin}
-        title="Démarrer la partie"
+        title="On commence !"
       ></Button>
     </Modal>
   );
