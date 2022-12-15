@@ -73,12 +73,12 @@ export const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    elevation: 10,
     flex: 1,
   },
   content: {
+    display: "flex",
     padding: 20,
-    alignItems: "stretch",
   },
   button: {
     borderRadius: 20,

@@ -114,13 +114,13 @@ const Home = ({ navigation }: any) => {
         <Text style={styles.title}>Vaches et Taureaux</Text>
         <View style={styles.gameButtons}>
           <Pressable
-            style={[styles.gameButton]}
+            style={[styles.gameButton, styles.shadow]}
             onPress={() => setModalOpened("start")}
           >
             <Text style={styles.gameButtonText}>Commencer une partie</Text>
           </Pressable>
           <Pressable
-            style={[styles.gameButton]}
+            style={[styles.gameButton, styles.shadow]}
             onPress={() => setModalOpened("join")}
           >
             <Text style={styles.gameButtonText}>Rejoindre une partie</Text>
@@ -128,7 +128,7 @@ const Home = ({ navigation }: any) => {
         </View>
         <View>
           <Pressable
-            style={[styles.ruleButton]}
+            style={[styles.ruleButton, styles.shadow]}
             onPress={() => setModalOpened("htp")}
           >
             <Text style={styles.ruleButtonText}>Comment jouer ?</Text>
@@ -164,6 +164,16 @@ const styles = StyleSheet.create({
   gameButtons: {
     flexDirection: "row",
   },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
+  },
   gameButton: {
     backgroundColor: "#F9E5B4",
     flex: 1,
@@ -173,7 +183,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 6,
-    elevation: 3,
   },
   gameButtonText: {
     fontFamily: "AutourOne-Regular",
@@ -188,6 +197,7 @@ const styles = StyleSheet.create({
     margin: 10,
     borderRadius: 6,
     elevation: 3,
+    shadowColor: "#000",
   },
   ruleButtonText: {
     fontFamily: "AutourOne-Regular",

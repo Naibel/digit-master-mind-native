@@ -266,6 +266,7 @@ const Attempts = ({ userData }: { userData: any }) => {
 
 const attempsStyles = StyleSheet.create({
   attemptsView: {
+    fontFamily: "AutourOne-Regular",
     textAlign: "center",
     marginVertical: 10,
     flexDirection: "row",
@@ -293,31 +294,36 @@ const attempsStyles = StyleSheet.create({
 const styles = StyleSheet.create({
   content: {
     flex: 1,
+
     alignItems: "stretch",
     textAlign: "center",
     padding: 20,
     backgroundColor: "#78C6FF",
   },
   title: {
-    fontSize: 24,
+    fontFamily: "AutourOne-Regular",
+    fontSize: 20,
     marginBottom: 20,
     fontWeight: "bold",
     textAlign: "center",
     color: "white",
   },
   number: {
+    fontFamily: "AutourOne-Regular",
     fontSize: 62,
     marginBottom: 20,
     textAlign: "center",
     color: "white",
   },
   subtitle: {
+    fontFamily: "AutourOne-Regular",
     fontSize: 18,
     marginBottom: 0,
     textAlign: "center",
     color: "white",
   },
   text: {
+    fontFamily: "AutourOne-Regular",
     textAlign: "center",
     color: "white",
     marginBottom: 20,

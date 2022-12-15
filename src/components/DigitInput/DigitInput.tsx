@@ -38,13 +38,23 @@ const DigitInput = ({
 
 const styles = StyleSheet.create({
   input: {
+    fontFamily: "AutourOne-Regular",
+    color: "#7A693C",
     margin: 2,
-    borderBottomWidth: 1,
-    borderColor: "lightGrey",
-    padding: 3,
+    backgroundColor: "#FFF8E7",
+    borderRadius: 10,
+    padding: 10,
     textAlign: "center",
     fontSize: 48,
     letterSpacing: 20,
+    shadowColor: "#9d8a65",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 2,
+    elevation: 3,
   },
 });
 
