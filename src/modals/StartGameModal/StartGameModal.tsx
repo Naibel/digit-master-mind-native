@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Pressable, StyleSheet, Text } from "react-native";
+import { Button, StyleSheet, Text } from "react-native";
 import { DigitInput, Modal, ModalProps, styles } from "../../components";
 
 const StartGameModal = ({
@@ -26,6 +26,8 @@ const StartGameModal = ({
       <Text style={styles.modalTitle}>
         Allez hop ! Donnez-nous votre numéro secret !
       </Text>
+      <DigitInput onDigitChange={onChange} />
+      <Text>Règles : </Text>
       <Text style={customStyles.text}>
         1 - Choisissez un nombre à quatres chiffres
       </Text>
@@ -35,7 +37,6 @@ const StartGameModal = ({
       <Text style={customStyles.text}>
         3 - Le nombre ne doit pas commencer par zéro
       </Text>
-      <DigitInput onDigitChange={onChange} />
       <Button
         disabled={value.length < 4}
         onPress={onBegin}

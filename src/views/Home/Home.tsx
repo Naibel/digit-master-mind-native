@@ -135,7 +135,13 @@ const Home = ({ navigation }: any) => {
           </Pressable>
         </View>
         <View>
-          <Text style={{ color: "white", textAlign: "center" }}>
+          <Text
+            style={{
+              color: "white",
+              textAlign: "center",
+              fontFamily: "AutourOne-Regular",
+            }}
+          >
             2022 by Chawki & Dorian
           </Text>
         </View>
@@ -150,6 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#78C6FF",
   },
   title: {
+    fontFamily: "AutourOne-Regular",
     color: "white",
     fontSize: 36,
     textAlign: "center",
@@ -161,7 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9E5B4",
     flex: 1,
     paddingVertical: 40,
-    paddingHorizontal: 5,
+    paddingHorizontal: 20,
     margin: 10,
     alignItems: "center",
     justifyContent: "center",
@@ -169,9 +176,10 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   gameButtonText: {
+    fontFamily: "AutourOne-Regular",
     color: "#7A693C",
     textAlign: "center",
-    fontSize: 20,
+    fontSize: 16,
   },
   ruleButton: {
     backgroundColor: "#1E7E2D",
@@ -182,8 +190,9 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   ruleButtonText: {
+    fontFamily: "AutourOne-Regular",
     color: "white",
-    fontSize: 24,
+    fontSize: 20,
     textAlign: "center",
   },
   menu: {
@@ -219,11 +228,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#2196F3",
   },
   textStyle: {
+    fontFamily: "AutourOne-Regular",
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
   },
   modalText: {
+    fontFamily: "AutourOne-Regular",
     marginBottom: 15,
     textAlign: "center",
   },

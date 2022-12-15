@@ -12,7 +12,7 @@ import firestore from "@react-native-firebase/firestore";
 import { StartGameModal } from "../../modals";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const GameScreen = ({ route }: any) => {
+const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
 
   const [finished, setFinished] = useState<boolean>(false);
@@ -170,11 +170,13 @@ const GameScreen = ({ route }: any) => {
           ? "La session de jeu d'un utilisateur"
           : "Votre session de jeu"}
       </Text>
-      <Text style={styles.subtitle}>Votre numéro est : </Text>
-      <Text style={styles.title}>
+      <Text style={styles.subtitle}>Votre numéro est</Text>
+      <Text style={styles.number}>
         {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
       </Text>
-      {turn && <Text style={styles.subtitle}>{getTurnMessage()}</Text>}
+      {turn && !finished && (
+        <Text style={styles.subtitle}>{getTurnMessage()}</Text>
+      )}
       {finished && (
         <View>
           {(mode === "join" && currentGame.b_win) ||
@@ -183,6 +185,12 @@ const GameScreen = ({ route }: any) => {
           ) : (
             <Text style={styles.title}>Sapristi, t'as perdu !</Text>
           )}
+          <Button
+            onPress={() => {
+              navigation.goBack();
+            }}
+            title="Revenir en arrière"
+          />
         </View>
       )}
       {!finished && (
@@ -190,7 +198,7 @@ const GameScreen = ({ route }: any) => {
           {mode === "start" && currentGame.isOpen ? (
             <View>
               <Text style={styles.text}>En attente d'un autre joueur...</Text>
-              <ActivityIndicator size="large" color="grey" />
+              <ActivityIndicator size="large" color="white" />
             </View>
           ) : (
             <View>
@@ -288,19 +296,30 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     textAlign: "center",
     padding: 20,
+    backgroundColor: "#78C6FF",
   },
   title: {
     fontSize: 24,
     marginBottom: 20,
     fontWeight: "bold",
     textAlign: "center",
+    color: "white",
+  },
+  number: {
+    fontSize: 62,
+    marginBottom: 20,
+    textAlign: "center",
+    color: "white",
   },
   subtitle: {
     fontSize: 18,
-    marginBottom: 5,
+    marginBottom: 0,
     textAlign: "center",
+    color: "white",
   },
   text: {
     textAlign: "center",
+    color: "white",
+    marginBottom: 20,
   },
 });
