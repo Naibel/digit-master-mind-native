@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
-  Button,
-  Image,
   ImageBackground,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import { DigitInput } from "../../components";
-import usePlay from "../../hooks/usePlay";
 import firestore from "@react-native-firebase/firestore";
+
+import usePlay from "../../hooks/usePlay";
+import { DigitInput } from "../../components";
 import { StartGameModal } from "../../modals";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SuccessEndScreen } from "./SuccessEndScreen";
+import { Attempts } from "./Attempts";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -180,35 +179,15 @@ const GameScreen = ({ route, navigation }: any) => {
         source={require("../../../assets/img/clouds.png")}
       ></ImageBackground>
       <View style={{ paddingVertical: 60, paddingHorizontal: 48, flex: 1 }}>
-        {!finished && (
+        {finished ? (
+          <SuccessEndScreen navigation={navigation} adversaryNumber={1234} />
+        ) : (
           <>
             <Text style={styles.subtitle}>Votre numéro secret est</Text>
             <Text style={styles.number}>
               {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
             </Text>
             {turn && <Text style={styles.subtitle}>{getTurnMessage()}</Text>}
-          </>
-        )}
-        {finished ? (
-          <>
-            {/* <View>
-              {(mode === "join" && currentGame.b_win) ||
-              (mode === "start" && currentGame.a_win) ? (
-                <Text style={styles.title}>Vous avez gagné !</Text>
-              ) : (
-                <Text style={styles.title}>Sapristi, t'as perdu !</Text>
-              )}
-              <Button
-                onPress={() => {
-                  navigation.goBack();
-                }}
-                title="Revenir en arrière"
-              />
-            </View> */}
-            <SucessEndScreen adversaryNumber={1234} />
-          </>
-        ) : (
-          <>
             {mode === "start" && currentGame.isOpen ? (
               <View>
                 <Text style={styles.text}>En attente d'un autre joueur...</Text>
@@ -222,6 +201,9 @@ const GameScreen = ({ route, navigation }: any) => {
                   </Text>
                 )}
                 <View>
+                  <Text style={styles.subtitle}>
+                    Devinez le numéro de votre adversaire !
+                  </Text>
                   <DigitInput onDigitChange={setAttempt} />
                   <TouchableOpacity
                     style={styles.button}
@@ -261,134 +243,6 @@ const GameScreen = ({ route, navigation }: any) => {
 };
 
 export default GameScreen;
-
-const SucessEndScreen = ({ adversaryNumber }: { adversaryNumber: number }) => {
-  return (
-    <SafeAreaView style={endStyles.content}>
-      <Text style={[endStyles.title, { marginBottom: 30 }]}>Bravo !</Text>
-      <Text style={endStyles.subtitle}>
-        Le numéro secret de votre adversaire était
-      </Text>
-      <Text style={[endStyles.title, { fontSize: 48, marginBottom: 30 }]}>
-        {adversaryNumber}
-      </Text>
-      <View style={endStyles.circle}>
-        <Image
-          style={{ width: 235, height: 235 }}
-          source={require("../../../assets/img/trophy.png")}
-        />
-      </View>
-      <View style={{ flex: 1 }} />
-      <TouchableOpacity style={styles.button} onPress={() => {}}>
-        <Image source={require("../../../assets/img/refresh.png")} />
-        <Text style={endStyles.buttonText}>On refait une partie ?</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
-  );
-};
-
-const endStyles = StyleSheet.create({
-  content: {
-    alignContent: "center",
-    justifyContent: "center",
-    textAlign: "center",
-  },
-  title: {
-    fontFamily: "AutourOne-Regular",
-    color: "white",
-    fontSize: 40,
-    textAlign: "center",
-  },
-  subtitle: {
-    fontFamily: "AutourOne-Regular",
-    color: "white",
-    fontSize: 15,
-    textAlign: "center",
-  },
-  circle: {
-    padding: 20,
-    width: 275,
-    borderRadius: 500,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    marginBottom: 50,
-  },
-  buttonText: {
-    fontFamily: "AutourOne-Regular",
-    color: "#7A693C",
-    fontSize: 16,
-    marginLeft: 10,
-  },
-});
-
-const Attempts = ({ userData }: { userData: any }) => {
-  if (!userData) return null;
-  return (
-    <ScrollView style={{ height: 291 }}>
-      {userData.map((attempt: any, index: number) => (
-        <View key={index} style={attempsStyles.attemptsView}>
-          <View style={attempsStyles.numberView}>
-            <Text style={attempsStyles.number}>{attempt.attempt} </Text>
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={attempsStyles.cows}>
-              <Text style={{ fontWeight: "bold" }}>{attempt.cows}</Text>
-              <Image
-                style={{ width: 23, height: 23 }}
-                source={require("../../../assets/img/cows_list.png")}
-              />
-            </Text>
-            <Text style={attempsStyles.bulls}>
-              <Text style={{ fontWeight: "bold" }}>{attempt.bulls}</Text>
-              <Image
-                style={{ width: 23, height: 23 }}
-                source={require("../../../assets/img/bulls_list.png")}
-              />
-            </Text>
-          </View>
-        </View>
-      ))}
-    </ScrollView>
-  );
-};
-
-const attempsStyles = StyleSheet.create({
-  attemptsView: {
-    backgroundColor: "rgba(0, 0, 0, 0.3)",
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    fontFamily: "AutourOne-Regular",
-    textAlign: "center",
-    marginVertical: 5,
-    flexDirection: "row",
-    alignContent: "space-around",
-    alignItems: "center",
-  },
-  attempts: {
-    fontFamily: "AutourOne-Regular",
-    textAlign: "center",
-    marginVertical: 5,
-  },
-  bulls: {
-    fontFamily: "AutourOne-Regular",
-    color: "white",
-    fontSize: 20,
-  },
-  cows: {
-    fontFamily: "AutourOne-Regular",
-    color: "white",
-    fontSize: 20,
-    marginRight: 10,
-  },
-  numberView: {
-    flex: 1,
-  },
-  number: {
-    fontFamily: "AutourOne-Regular",
-    color: "white",
-    fontSize: 20,
-  },
-});
 
 const styles = StyleSheet.create({
   content: {

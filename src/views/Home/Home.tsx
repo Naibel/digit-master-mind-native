@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   Image,
   ImageBackground,
-  Pressable,
-  SafeAreaView,
+  TouchableOpacity,
   StyleSheet,
   Text,
   View,
@@ -138,21 +137,21 @@ const Home = ({ navigation }: any) => {
           resizeMode="cover"
         >
           <View style={styles.gameButtons}>
-            <Pressable
+            <TouchableOpacity
               style={[styles.gameButton, styles.shadow]}
               onPress={() => setModalOpened("start")}
             >
               <Text style={styles.gameButtonText}>Commencer une partie</Text>
-            </Pressable>
-            <Pressable
+            </TouchableOpacity>
+            <TouchableOpacity
               style={[styles.gameButton, styles.shadow]}
               onPress={() => setModalOpened("join")}
             >
               <Text style={styles.gameButtonText}>Rejoindre une partie</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View>
-            <Pressable
+            <TouchableOpacity
               style={[styles.ruleButton]}
               onPress={() => setModalOpened("htp")}
             >
@@ -166,7 +165,7 @@ const Home = ({ navigation }: any) => {
                 source={require("../../../assets/img/help_icon.png")}
               />
               <Text style={styles.ruleButtonText}>Comment jouer ?</Text>
-            </Pressable>
+            </TouchableOpacity>
           </View>
           <View>
             <Text

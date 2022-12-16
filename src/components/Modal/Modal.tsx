@@ -3,8 +3,8 @@ import {
   Modal as RNModal,
   StyleSheet,
   Text,
-  Pressable,
   View,
+  TouchableOpacity,
 } from "react-native";
 
 export type ModalProps = {
@@ -27,12 +27,12 @@ const Modal = ({ visible, children, onClose }: ModalProps) => (
   >
     <View style={styles.centeredView}>
       <View style={styles.modalView}>
-        <Pressable
+        <TouchableOpacity
           style={[styles.button, styles.buttonClose]}
           onPress={onClose}
         >
           <Text style={styles.icon}>&times;</Text>
-        </Pressable>
+        </TouchableOpacity>
         <View style={styles.spacing} />
         <View style={styles.content}>{children}</View>
         <View style={styles.spacing} />

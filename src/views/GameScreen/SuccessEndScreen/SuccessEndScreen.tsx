@@ -1,0 +1,75 @@
+import React from "react";
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+import { styles } from "../../../components";
+
+const SuccessEndScreen = ({
+  navigation,
+  adversaryNumber,
+}: {
+  navigation: any;
+  adversaryNumber: number;
+}) => (
+  <SafeAreaView style={endStyles.content}>
+    <Text style={[endStyles.title, { marginBottom: 30 }]}>Bravo !</Text>
+    <Text style={endStyles.subtitle}>
+      Le numéro secret de votre adversaire était
+    </Text>
+    <Text style={[endStyles.title, { fontSize: 48, marginBottom: 30 }]}>
+      {adversaryNumber}
+    </Text>
+    <View style={endStyles.circle}>
+      <Image
+        style={{ width: 235, height: 235 }}
+        source={require("../../../../assets/img/trophy.png")}
+      />
+    </View>
+    <View style={{ flex: 1 }} />
+    <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
+      <Image source={require("../../../../assets/img/refresh.png")} />
+      <Text style={endStyles.buttonText}>On refait une partie ?</Text>
+    </TouchableOpacity>
+  </SafeAreaView>
+);
+
+export default SuccessEndScreen;
+
+const endStyles = StyleSheet.create({
+  content: {
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  title: {
+    fontFamily: "AutourOne-Regular",
+    color: "white",
+    fontSize: 40,
+    textAlign: "center",
+  },
+  subtitle: {
+    fontFamily: "AutourOne-Regular",
+    color: "white",
+    fontSize: 15,
+    textAlign: "center",
+  },
+  circle: {
+    padding: 20,
+    width: 275,
+    borderRadius: 500,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    marginBottom: 50,
+  },
+  buttonText: {
+    fontFamily: "AutourOne-Regular",
+    color: "#7A693C",
+    fontSize: 16,
+    marginLeft: 10,
+  },
+});
