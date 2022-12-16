@@ -2,8 +2,12 @@ import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   Button,
+  Image,
+  ImageBackground,
+  ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { DigitInput } from "../../components";
@@ -164,70 +168,86 @@ const GameScreen = ({ route, navigation }: any) => {
   };
 
   return (
-    <SafeAreaView style={styles.content}>
-      <Text style={styles.title}>
-        {mode === "join"
-          ? "La session de jeu d'un utilisateur"
-          : "Votre session de jeu"}
-      </Text>
-      <Text style={styles.subtitle}>Votre numéro est</Text>
-      <Text style={styles.number}>
-        {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
-      </Text>
-      {turn && !finished && (
-        <Text style={styles.subtitle}>{getTurnMessage()}</Text>
-      )}
-      {finished && (
-        <View>
-          {(mode === "join" && currentGame.b_win) ||
-          (mode === "start" && currentGame.a_win) ? (
-            <Text style={styles.title}>Vous avez gagné !</Text>
-          ) : (
-            <Text style={styles.title}>Sapristi, t'as perdu !</Text>
-          )}
-          <Button
-            onPress={() => {
-              navigation.goBack();
-            }}
-            title="Revenir en arrière"
-          />
-        </View>
-      )}
-      {!finished && (
-        <>
-          {mode === "start" && currentGame.isOpen ? (
-            <View>
-              <Text style={styles.text}>En attente d'un autre joueur...</Text>
-              <ActivityIndicator size="large" color="white" />
-            </View>
-          ) : (
-            <View>
-              {yourTurn && (
-                <Text style={styles.text}>
-                  Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
-                </Text>
+    <View style={styles.content}>
+      <ImageBackground
+        style={{
+          flex: 1,
+          position: "absolute",
+          width: "100%",
+          height: 270,
+          top: 0,
+        }}
+        source={require("../../../assets/img/clouds.png")}
+      ></ImageBackground>
+      <View style={{ paddingVertical: 60, paddingHorizontal: 48, flex: 1 }}>
+        {!finished && (
+          <>
+            <Text style={styles.subtitle}>Votre numéro secret est</Text>
+            <Text style={styles.number}>
+              {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
+            </Text>
+            {turn && <Text style={styles.subtitle}>{getTurnMessage()}</Text>}
+          </>
+        )}
+        {finished ? (
+          <>
+            {/* <View>
+              {(mode === "join" && currentGame.b_win) ||
+              (mode === "start" && currentGame.a_win) ? (
+                <Text style={styles.title}>Vous avez gagné !</Text>
+              ) : (
+                <Text style={styles.title}>Sapristi, t'as perdu !</Text>
               )}
-              {/* <Progress value={timeleft * 10} /> */}
-              <Attempts
-                userData={
-                  mode === "join"
-                    ? currentGame?.b_attempts
-                    : currentGame?.a_attempts
-                }
+              <Button
+                onPress={() => {
+                  navigation.goBack();
+                }}
+                title="Revenir en arrière"
               />
-
+            </View> */}
+            <SucessEndScreen adversaryNumber={1234} />
+          </>
+        ) : (
+          <>
+            {mode === "start" && currentGame.isOpen ? (
               <View>
-                <DigitInput onDigitChange={setAttempt} />
-                <Button
-                  disabled={attempt.length !== 4 || finished || notYourTurn}
-                  onPress={handleAttempt}
-                  title="Valider"
+                <Text style={styles.text}>En attente d'un autre joueur...</Text>
+                <ActivityIndicator size="large" color="white" />
+              </View>
+            ) : (
+              <View>
+                {yourTurn && (
+                  <Text style={styles.text}>
+                    Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
+                  </Text>
+                )}
+                <View>
+                  <DigitInput onDigitChange={setAttempt} />
+                  <TouchableOpacity
+                    style={styles.button}
+                    disabled={attempt.length !== 4 || finished || notYourTurn}
+                    onPress={handleAttempt}
+                  >
+                    <Text>Valider</Text>
+                  </TouchableOpacity>
+                </View>
+                {/* <Progress value={timeleft * 10} /> */}
+                <Attempts
+                  userData={
+                    mode === "join"
+                      ? currentGame?.b_attempts
+                      : currentGame?.a_attempts
+                  }
                 />
               </View>
-            </View>
-          )}
-        </>
-      )}
+            )}
+          </>
+        )}
+      </View>
+      <ImageBackground
+        style={{ height: 200, zIndex: -1 }}
+        source={require("../../../assets/img/grass_bg_low.png")}
+      ></ImageBackground>
       {mode === "join" && (
         <StartGameModal
           onDigitChange={setChosenNumber}
@@ -236,69 +256,165 @@ const GameScreen = ({ route, navigation }: any) => {
           onClose={() => setIsModalOpen(false)}
         />
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default GameScreen;
 
+const SucessEndScreen = ({ adversaryNumber }: { adversaryNumber: number }) => {
+  return (
+    <SafeAreaView style={endStyles.content}>
+      <Text style={[endStyles.title, { marginBottom: 30 }]}>Bravo !</Text>
+      <Text style={endStyles.subtitle}>
+        Le numéro secret de votre adversaire était
+      </Text>
+      <Text style={[endStyles.title, { fontSize: 48, marginBottom: 30 }]}>
+        {adversaryNumber}
+      </Text>
+      <View style={endStyles.circle}>
+        <Image
+          style={{ width: 235, height: 235 }}
+          source={require("../../../assets/img/trophy.png")}
+        />
+      </View>
+      <View style={{ flex: 1 }} />
+      <TouchableOpacity style={styles.button} onPress={() => {}}>
+        <Image source={require("../../../assets/img/refresh.png")} />
+        <Text style={endStyles.buttonText}>On refait une partie ?</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+};
+
+const endStyles = StyleSheet.create({
+  content: {
+    alignContent: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  title: {
+    fontFamily: "AutourOne-Regular",
+    color: "white",
+    fontSize: 40,
+    textAlign: "center",
+  },
+  subtitle: {
+    fontFamily: "AutourOne-Regular",
+    color: "white",
+    fontSize: 15,
+    textAlign: "center",
+  },
+  circle: {
+    padding: 20,
+    width: 275,
+    borderRadius: 500,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    marginBottom: 50,
+  },
+  buttonText: {
+    fontFamily: "AutourOne-Regular",
+    color: "#7A693C",
+    fontSize: 16,
+    marginLeft: 10,
+  },
+});
+
 const Attempts = ({ userData }: { userData: any }) => {
   if (!userData) return null;
-  return userData.map((attempt: any, index: number) => (
-    <View key={index} style={attempsStyles.attemptsView}>
-      <View style={attempsStyles.numberView}>
-        <Text style={attempsStyles.number}>{attempt.attempt} </Text>
-      </View>
-      <View style={{ flexDirection: "row" }}>
-        <Text style={attempsStyles.bulls}>
-          <Text style={{ fontWeight: "bold" }}>{attempt.bulls}</Text> taureau
-          {attempt.bulls > 1 && "x"}
-        </Text>
-        <Text> et </Text>
-        <Text style={attempsStyles.cows}>
-          <Text style={{ fontWeight: "bold" }}>{attempt.cows}</Text> vache
-          {attempt.cows > 1 && "s"}
-        </Text>
-      </View>
-    </View>
-  ));
+  return (
+    <ScrollView style={{ height: 291 }}>
+      {userData.map((attempt: any, index: number) => (
+        <View key={index} style={attempsStyles.attemptsView}>
+          <View style={attempsStyles.numberView}>
+            <Text style={attempsStyles.number}>{attempt.attempt} </Text>
+          </View>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={attempsStyles.cows}>
+              <Text style={{ fontWeight: "bold" }}>{attempt.cows}</Text>
+              <Image
+                style={{ width: 23, height: 23 }}
+                source={require("../../../assets/img/cows_list.png")}
+              />
+            </Text>
+            <Text style={attempsStyles.bulls}>
+              <Text style={{ fontWeight: "bold" }}>{attempt.bulls}</Text>
+              <Image
+                style={{ width: 23, height: 23 }}
+                source={require("../../../assets/img/bulls_list.png")}
+              />
+            </Text>
+          </View>
+        </View>
+      ))}
+    </ScrollView>
+  );
 };
 
 const attempsStyles = StyleSheet.create({
   attemptsView: {
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     fontFamily: "AutourOne-Regular",
     textAlign: "center",
-    marginVertical: 10,
+    marginVertical: 5,
     flexDirection: "row",
     alignContent: "space-around",
     alignItems: "center",
   },
   attempts: {
+    fontFamily: "AutourOne-Regular",
     textAlign: "center",
     marginVertical: 5,
   },
   bulls: {
-    color: "brown",
+    fontFamily: "AutourOne-Regular",
+    color: "white",
+    fontSize: 20,
   },
   cows: {
-    color: "green",
+    fontFamily: "AutourOne-Regular",
+    color: "white",
+    fontSize: 20,
+    marginRight: 10,
   },
   numberView: {
     flex: 1,
   },
   number: {
-    fontSize: 24,
+    fontFamily: "AutourOne-Regular",
+    color: "white",
+    fontSize: 20,
   },
 });
 
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-
     alignItems: "stretch",
     textAlign: "center",
-    padding: 20,
     backgroundColor: "#78C6FF",
+  },
+  button: {
+    display: "flex",
+    flexDirection: "row",
+    backgroundColor: "#F9E5B4",
+    borderRadius: 6,
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    color: "white",
+    paddingVertical: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 3,
   },
   title: {
     fontFamily: "AutourOne-Regular",

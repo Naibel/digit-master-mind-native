@@ -1,5 +1,5 @@
 import React from "react";
-import { Text } from "react-native";
+import { Image, Text, View } from "react-native";
 import { Modal, ModalProps, styles } from "../../components";
 
 const HowToPlay = ({ visible, onClose }: ModalProps) => (
@@ -15,13 +15,60 @@ const HowToPlay = ({ visible, onClose }: ModalProps) => (
       Le but : deviner le chiffre de son adversaire avant qu’il ne devine le
       vôtre !
     </Text>
-    <Text style={styles.modalText}>
-      Vache : Le chiffre est présent et il est au bon endroit !
-    </Text>
-    <Text style={styles.modalText}>
-      Taureau : Le chiffre est présent mais il n’est pas au bon endroit.
-    </Text>
-    <Text style={styles.modalText}>
+    <View
+      style={{
+        display: "flex",
+        marginVertical: 10,
+        alignItems: "center",
+        flexDirection: "row",
+      }}
+    >
+      <Image
+        style={{
+          width: 155,
+          height: 119,
+        }}
+        source={require("../../../assets/img/cows_tutorial.png")}
+      />
+      <Text
+        style={[
+          { flex: 1, textAlign: "left", fontSize: 15, marginLeft: 10 },
+          styles.modalText,
+        ]}
+      >
+        Le chiffre est présent et il est au bon endroit !
+      </Text>
+    </View>
+    <View
+      style={{
+        display: "flex",
+        marginVertical: 10,
+        alignItems: "center",
+        flexDirection: "row",
+      }}
+    >
+      <Text
+        style={[
+          { flex: 1, textAlign: "right", fontSize: 15, marginRight: 10 },
+          styles.modalText,
+        ]}
+      >
+        Le chiffre est présent mais il n’est pas au bon endroit.
+      </Text>
+      <Image
+        style={{
+          width: 134,
+          height: 90,
+        }}
+        source={require("../../../assets/img/bulls_tutorial.png")}
+      />
+    </View>
+    <Text
+      style={[
+        { fontSize: 15, textAlign: "center", marginTop: 24 },
+        styles.modalText,
+      ]}
+    >
       Quels sont les chiffres concernés ? A vous de le deviner !{" "}
     </Text>
   </Modal>

@@ -58,6 +58,11 @@ export const styles = StyleSheet.create({
     marginBottom: 20,
     color: "#7A693C",
   },
+  modalText: {
+    fontFamily: "AutourOne-Regular",
+    marginBottom: 15,
+    color: "#7A693C",
+  },
   modalView: {
     marginVertical: 40,
     marginHorizontal: 20,
@@ -104,12 +109,6 @@ export const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
-  },
-  modalText: {
-    fontFamily: "AutourOne-Regular",
-    marginBottom: 15,
-    textAlign: "center",
-    color: "#7A693C",
   },
 });
 

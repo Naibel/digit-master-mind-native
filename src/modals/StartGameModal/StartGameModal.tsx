@@ -29,13 +29,13 @@ const StartGameModal = ({
       <DigitInput onDigitChange={onChange} />
       <View style={{ marginVertical: 20 }}>
         <Text style={customStyles.text}>
-          1) Choisissez un nombre à quatres chiffres.
+          1. Choisissez un nombre à quatres chiffres.
         </Text>
         <Text style={customStyles.text}>
-          2) Tous les chiffres doivent être différents.
+          2. Tous les chiffres sont uniques.
         </Text>
         <Text style={customStyles.text}>
-          3) Le nombre ne doit pas commencer par zéro.
+          3. Le nombre ne doit pas commencer par zéro.
         </Text>
       </View>
       <View style={{ flex: 1 }} />
@@ -61,8 +61,8 @@ const StartGameModal = ({
 export const customStyles = StyleSheet.create({
   text: {
     fontFamily: "AutourOne-Regular",
-    textAlign: "left",
-    marginVertical: 5,
+    textAlign: "center",
+    marginVertical: 10,
     fontSize: 12,
     color: "#7A693C",
   },

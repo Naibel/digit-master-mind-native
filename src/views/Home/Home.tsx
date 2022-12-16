@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  Pressable,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import firestore from "@react-native-firebase/firestore";
 
 import { HowToPlayModal, JoinGameModal, StartGameModal } from "../../modals";
@@ -99,7 +107,7 @@ const Home = ({ navigation }: any) => {
   };
 
   return (
-    <SafeAreaView style={styles.centeredView}>
+    <View style={styles.centeredView}>
       <HomeModals
         navigation={navigation}
         onClose={() => setModalOpened(null)}
@@ -111,42 +119,70 @@ const Home = ({ navigation }: any) => {
         htpModalVisible={modalOpened === "htp"}
       />
       <View style={styles.menu}>
-        <Text style={styles.title}>Vaches et Taureaux</Text>
-        <View style={styles.gameButtons}>
-          <Pressable
-            style={[styles.gameButton, styles.shadow]}
-            onPress={() => setModalOpened("start")}
-          >
-            <Text style={styles.gameButtonText}>Commencer une partie</Text>
-          </Pressable>
-          <Pressable
-            style={[styles.gameButton, styles.shadow]}
-            onPress={() => setModalOpened("join")}
-          >
-            <Text style={styles.gameButtonText}>Rejoindre une partie</Text>
-          </Pressable>
-        </View>
-        <View>
-          <Pressable
-            style={[styles.ruleButton, styles.shadow]}
-            onPress={() => setModalOpened("htp")}
-          >
-            <Text style={styles.ruleButtonText}>Comment jouer ?</Text>
-          </Pressable>
-        </View>
-        <View>
-          <Text
+        <ImageBackground
+          style={{ flex: 1, justifyContent: "center" }}
+          source={require("../../../assets/img/clouds.png")}
+        >
+          <Image
             style={{
-              color: "white",
-              textAlign: "center",
-              fontFamily: "AutourOne-Regular",
+              width: 318,
+              height: 214,
+              alignSelf: "center",
             }}
-          >
-            2022 by Chawki & Dorian
-          </Text>
-        </View>
+            source={require("../../../assets/img/logo.png")}
+          />
+        </ImageBackground>
+        <ImageBackground
+          style={{ flex: 1.5, justifyContent: "flex-end", padding: 20 }}
+          source={require("../../../assets/img/grass_bg_high.png")}
+          resizeMode="cover"
+        >
+          <View style={styles.gameButtons}>
+            <Pressable
+              style={[styles.gameButton, styles.shadow]}
+              onPress={() => setModalOpened("start")}
+            >
+              <Text style={styles.gameButtonText}>Commencer une partie</Text>
+            </Pressable>
+            <Pressable
+              style={[styles.gameButton, styles.shadow]}
+              onPress={() => setModalOpened("join")}
+            >
+              <Text style={styles.gameButtonText}>Rejoindre une partie</Text>
+            </Pressable>
+          </View>
+          <View>
+            <Pressable
+              style={[styles.ruleButton]}
+              onPress={() => setModalOpened("htp")}
+            >
+              <Image
+                style={{
+                  width: 61,
+                  height: 61,
+                  alignSelf: "center",
+                  marginRight: 24,
+                }}
+                source={require("../../../assets/img/help_icon.png")}
+              />
+              <Text style={styles.ruleButtonText}>Comment jouer ?</Text>
+            </Pressable>
+          </View>
+          <View>
+            <Text
+              style={{
+                color: "white",
+                textAlign: "center",
+                fontFamily: "AutourOne-Regular",
+                marginTop: 80,
+              }}
+            >
+              2022 by Chawki & Dorian
+            </Text>
+          </View>
+        </ImageBackground>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -154,6 +190,13 @@ const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     backgroundColor: "#78C6FF",
+  },
+  menu: {
+    padding: 0,
+    flex: 1,
+    justifyContent: "space-around",
+    alignItems: "stretch",
+    alignContent: "center",
   },
   title: {
     fontFamily: "AutourOne-Regular",
@@ -191,10 +234,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   ruleButton: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#1E7E2D",
-    paddingVertical: 15,
-    paddingHorizontal: 5,
     margin: 10,
+    height: 46,
     borderRadius: 6,
     elevation: 3,
     shadowColor: "#000",
@@ -202,14 +248,8 @@ const styles = StyleSheet.create({
   ruleButtonText: {
     fontFamily: "AutourOne-Regular",
     color: "white",
-    fontSize: 20,
+    fontSize: 16,
     textAlign: "center",
-  },
-  menu: {
-    padding: 20,
-    flex: 1,
-    justifyContent: "space-around",
-    alignItems: "stretch",
   },
   modalView: {
     margin: 20,
