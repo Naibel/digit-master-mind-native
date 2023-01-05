@@ -26,7 +26,7 @@ const JoinGameModal = ({
             }}
           >
             <Text style={[buttonStyle.whiteText, buttonStyle.text]}>
-              Partie N°{index}
+              Partie N°{index + 1}
             </Text>
             <Text style={[buttonStyle.whiteText, buttonStyle.smallText]}>
               Id : {game.id}
