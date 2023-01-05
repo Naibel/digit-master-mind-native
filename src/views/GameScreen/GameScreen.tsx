@@ -15,6 +15,7 @@ import { StartGameModal } from "../../modals";
 import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
 import { buttonStyle } from "../../styles/buttons";
+import { FailureEndScreen } from "./FailureEndScreen";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -183,7 +184,22 @@ const GameScreen = ({ route, navigation }: any) => {
       ></ImageBackground>
       <View style={{ paddingVertical: 60, paddingHorizontal: 48, flex: 1 }}>
         {finished ? (
-          <SuccessEndScreen navigation={navigation} adversaryNumber={1234} />
+          (mode === "start" && currentGame.a_win) ||
+          (mode === "join" && currentGame.b_win) ? (
+            <SuccessEndScreen
+              navigation={navigation}
+              adversaryNumber={
+                mode === "start" ? currentGame.b_digit : currentGame.a_digit
+              }
+            />
+          ) : (
+            <FailureEndScreen
+              navigation={navigation}
+              adversaryNumber={
+                mode === "start" ? currentGame.b_digit : currentGame.a_digit
+              }
+            />
+          )
         ) : (
           <>
             <Text style={styles.subtitle}>Votre numéro secret est</Text>
@@ -265,33 +281,6 @@ const styles = StyleSheet.create({
     alignItems: "stretch",
     textAlign: "center",
     backgroundColor: "#78C6FF",
-  },
-  button: {
-    display: "flex",
-    flexDirection: "row",
-    backgroundColor: "#F9E5B4",
-    borderRadius: 6,
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
-    color: "white",
-    paddingVertical: 16,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  title: {
-    fontFamily: "AutourOne-Regular",
-    fontSize: 20,
-    marginBottom: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "white",
   },
   number: {
     fontFamily: "AutourOne-Regular",
