@@ -51,15 +51,7 @@ export const styles = StyleSheet.create({
     alignItems: "stretch",
     backgroundColor: "rgba(0,0,0,0.3)",
   },
-  modalTitle: {
-    fontFamily: "AutourOne-Regular",
-    fontSize: 20,
-    textAlign: "center",
-    marginBottom: 20,
-    color: "#7A693C",
-  },
   modalText: {
-    fontFamily: "AutourOne-Regular",
     marginBottom: 15,
     color: "#7A693C",
   },
@@ -99,6 +91,7 @@ export const styles = StyleSheet.create({
   buttonClose: {
     padding: 0,
     marginVertical: 0,
+    marginHorizontal: 10,
     backgroundColor: "transparent",
   },
   icon: {

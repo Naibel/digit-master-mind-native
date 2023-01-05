@@ -10,6 +10,7 @@ import {
 import firestore from "@react-native-firebase/firestore";
 
 import { HowToPlayModal, JoinGameModal, StartGameModal } from "../../modals";
+import { buttonStyle } from "../../styles/buttons";
 
 const HomeModals = ({
   navigation,
@@ -138,16 +139,20 @@ const Home = ({ navigation }: any) => {
         >
           <View style={styles.gameButtons}>
             <TouchableOpacity
-              style={[styles.gameButton, styles.shadow]}
+              style={[styles.gameButton, buttonStyle.shadow]}
               onPress={() => setModalOpened("start")}
             >
-              <Text style={styles.gameButtonText}>Commencer une partie</Text>
+              <Text style={[buttonStyle.text, buttonStyle.lightText]}>
+                Commencer une partie
+              </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.gameButton, styles.shadow]}
+              style={[styles.gameButton, buttonStyle.shadow]}
               onPress={() => setModalOpened("join")}
             >
-              <Text style={styles.gameButtonText}>Rejoindre une partie</Text>
+              <Text style={[buttonStyle.text, buttonStyle.lightText]}>
+                Rejoindre une partie
+              </Text>
             </TouchableOpacity>
           </View>
           <View>
@@ -206,16 +211,6 @@ const styles = StyleSheet.create({
   gameButtons: {
     flexDirection: "row",
   },
-  shadow: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
   gameButton: {
     backgroundColor: "#F9E5B4",
     flex: 1,
@@ -225,12 +220,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 6,
-  },
-  gameButtonText: {
-    fontFamily: "AutourOne-Regular",
-    color: "#7A693C",
-    textAlign: "center",
-    fontSize: 16,
   },
   ruleButton: {
     display: "flex",
@@ -250,21 +239,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: "center",
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   button: {
     borderRadius: 20,
     padding: 10,
@@ -275,17 +249,6 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: "#2196F3",
-  },
-  textStyle: {
-    fontFamily: "AutourOne-Regular",
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    fontFamily: "AutourOne-Regular",
-    marginBottom: 15,
-    textAlign: "center",
   },
 });
 

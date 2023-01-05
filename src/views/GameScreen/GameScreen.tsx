@@ -14,6 +14,7 @@ import { DigitInput } from "../../components";
 import { StartGameModal } from "../../modals";
 import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
+import { buttonStyle } from "../../styles/buttons";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -29,6 +30,13 @@ const GameScreen = ({ route, navigation }: any) => {
 
   const games = firestore().collection("games");
   const { id, mode } = route.params;
+
+  const notYourTurn =
+    (mode === "join" && turn === "a") || (mode === "start" && turn === "b");
+  const yourTurn =
+    (mode === "start" && turn === "a") || (mode === "join" && turn === "b");
+
+  const isDisabled = attempt.length !== 4 || finished || notYourTurn;
 
   const handleStart = () => {
     let count = 10;
@@ -156,11 +164,6 @@ const GameScreen = ({ route, navigation }: any) => {
     }
   };
 
-  const notYourTurn =
-    (mode === "join" && turn === "a") || (mode === "start" && turn === "b");
-  const yourTurn =
-    (mode === "start" && turn === "a") || (mode === "join" && turn === "b");
-
   const getTurnMessage = () => {
     if (notYourTurn) return "C'est le tour de l'autre !";
     if (yourTurn) return "C'est ton tour !";
@@ -187,7 +190,11 @@ const GameScreen = ({ route, navigation }: any) => {
             <Text style={styles.number}>
               {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
             </Text>
-            {turn && <Text style={styles.subtitle}>{getTurnMessage()}</Text>}
+            {turn && (
+              <Text style={[styles.subtitle, { marginBottom: 20 }]}>
+                {getTurnMessage()}
+              </Text>
+            )}
             {mode === "start" && currentGame.isOpen ? (
               <View>
                 <Text style={styles.text}>En attente d'un autre joueur...</Text>
@@ -200,17 +207,25 @@ const GameScreen = ({ route, navigation }: any) => {
                     Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
                   </Text>
                 )}
-                <View>
-                  <Text style={styles.subtitle}>
+                <View style={{ marginBottom: 20 }}>
+                  <Text style={[styles.subtitle, { marginBottom: 20 }]}>
                     Devinez le numéro de votre adversaire !
                   </Text>
                   <DigitInput onDigitChange={setAttempt} />
                   <TouchableOpacity
-                    style={styles.button}
-                    disabled={attempt.length !== 4 || finished || notYourTurn}
+                    style={[
+                      { marginTop: 20 },
+                      buttonStyle.button,
+                      buttonStyle.light,
+                      buttonStyle.shadow,
+                      isDisabled && buttonStyle.disabled,
+                    ]}
+                    disabled={isDisabled}
                     onPress={handleAttempt}
                   >
-                    <Text>Valider</Text>
+                    <Text style={[buttonStyle.text, buttonStyle.lightText]}>
+                      Valider
+                    </Text>
                   </TouchableOpacity>
                 </View>
                 {/* <Progress value={timeleft * 10} /> */}

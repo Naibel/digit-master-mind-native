@@ -8,7 +8,7 @@ import {
   View,
 } from "react-native";
 
-import { styles } from "../../../components";
+import { buttonStyle } from "../../../styles/buttons";
 
 const SuccessEndScreen = ({
   navigation,
@@ -18,11 +18,11 @@ const SuccessEndScreen = ({
   adversaryNumber: number;
 }) => (
   <SafeAreaView style={endStyles.content}>
-    <Text style={[endStyles.title, { marginBottom: 30 }]}>Bravo !</Text>
+    <Text style={[endStyles.title, { marginBottom: 20 }]}>Bravo !</Text>
     <Text style={endStyles.subtitle}>
       Le numéro secret de votre adversaire était
     </Text>
-    <Text style={[endStyles.title, { fontSize: 48, marginBottom: 30 }]}>
+    <Text style={[endStyles.title, { fontSize: 48, marginBottom: 20 }]}>
       {adversaryNumber}
     </Text>
     <View style={endStyles.circle}>
@@ -32,9 +32,22 @@ const SuccessEndScreen = ({
       />
     </View>
     <View style={{ flex: 1 }} />
-    <TouchableOpacity style={styles.button} onPress={() => navigation.goBack()}>
-      <Image source={require("../../../../assets/img/refresh.png")} />
-      <Text style={endStyles.buttonText}>On refait une partie ?</Text>
+    <TouchableOpacity
+      style={[
+        buttonStyle.button,
+        buttonStyle.light,
+        buttonStyle.shadow,
+        buttonStyle.flexRow,
+      ]}
+      onPress={() => navigation.goBack()}
+    >
+      <Image
+        style={{ marginRight: 10 }}
+        source={require("../../../../assets/img/refresh.png")}
+      />
+      <Text style={[buttonStyle.lightText, buttonStyle.text]}>
+        On refait une partie ?
+      </Text>
     </TouchableOpacity>
   </SafeAreaView>
 );
@@ -44,7 +57,7 @@ export default SuccessEndScreen;
 const endStyles = StyleSheet.create({
   content: {
     alignContent: "center",
-    justifyContent: "center",
+    justifyContent: "space-between",
     textAlign: "center",
   },
   title: {

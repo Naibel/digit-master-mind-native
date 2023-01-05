@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { DigitInput, Modal, ModalProps, styles } from "../../components";
+import { Text, TouchableOpacity, View } from "react-native";
+import { DigitInput, Modal, ModalProps } from "../../components";
+import { buttonStyle } from "../../styles/buttons";
+import { textStyle } from "../../styles/text";
 
 const StartGameModal = ({
   onDigitChange,
@@ -9,6 +11,7 @@ const StartGameModal = ({
   onClose,
 }: ModalProps) => {
   const [value, setValue] = useState<string>("");
+  const isDisabled = value.length < 4;
 
   const onChange = (value: string) => {
     setValue(value);
@@ -23,57 +26,35 @@ const StartGameModal = ({
 
   return (
     <Modal visible={visible} onClose={onModalClose}>
-      <Text style={styles.modalTitle}>
+      <Text style={textStyle.modalTitle}>
         Allez hop ! Donnez-nous votre numéro secret !
       </Text>
       <DigitInput onDigitChange={onChange} />
       <View style={{ marginVertical: 20 }}>
-        <Text style={customStyles.text}>
+        <Text style={textStyle.h6}>
           1. Choisissez un nombre à quatres chiffres.
         </Text>
-        <Text style={customStyles.text}>
-          2. Tous les chiffres sont uniques.
-        </Text>
-        <Text style={customStyles.text}>
+        <Text style={textStyle.h6}>2. Tous les chiffres sont uniques.</Text>
+        <Text style={textStyle.h6}>
           3. Le nombre ne doit pas commencer par zéro.
         </Text>
       </View>
       <View style={{ flex: 1 }} />
       <TouchableOpacity
-        style={customStyles.button}
-        disabled={value.length < 4}
+        style={[
+          buttonStyle.button,
+          buttonStyle.dark,
+          isDisabled && buttonStyle.disabled,
+        ]}
+        disabled={isDisabled}
         onPress={onBegin}
       >
-        <Text
-          style={{
-            fontFamily: "AutourOne-Regular",
-            fontSize: 16,
-            color: "white",
-          }}
-        >
+        <Text style={[buttonStyle.text, buttonStyle.whiteText]}>
           On commence !
         </Text>
       </TouchableOpacity>
     </Modal>
   );
 };
-
-export const customStyles = StyleSheet.create({
-  text: {
-    fontFamily: "AutourOne-Regular",
-    textAlign: "center",
-    marginVertical: 10,
-    fontSize: 12,
-    color: "#7A693C",
-  },
-  button: {
-    backgroundColor: "#7A693C",
-    borderRadius: 6,
-    textAlign: "center",
-    alignItems: "center",
-    color: "white",
-    paddingVertical: 22,
-  },
-});
 
 export default StartGameModal;

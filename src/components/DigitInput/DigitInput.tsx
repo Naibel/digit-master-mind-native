@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
+import { buttonStyle } from "../../styles/buttons";
 
 const DigitInput = ({
   onDigitChange,
@@ -27,7 +28,7 @@ const DigitInput = ({
 
   return (
     <TextInput
-      style={styles.input}
+      style={[styles.input, buttonStyle.shadow]}
       keyboardType="numeric"
       onChangeText={onChanged}
       value={value}
@@ -47,14 +48,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 48,
     letterSpacing: 20,
-    shadowColor: "#9d8a65",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 2,
-    elevation: 3,
   },
 });
 
