@@ -16,6 +16,7 @@ import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
 import { buttonStyle } from "../../styles/buttons";
 import { FailureEndScreen } from "./FailureEndScreen";
+import { textStyle } from "../../styles/text";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -121,6 +122,7 @@ const GameScreen = ({ route, navigation }: any) => {
 
   const handleAttempt = () => {
     setDisabled(true);
+
     // clearInterval(timer);
     setTimeleft(0);
 
@@ -202,15 +204,27 @@ const GameScreen = ({ route, navigation }: any) => {
           )
         ) : (
           <>
-            <Text style={styles.subtitle}>Votre numéro secret est</Text>
-            <Text style={styles.number}>
-              {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
-            </Text>
-            {turn && (
-              <Text style={[styles.subtitle, { marginBottom: 20 }]}>
-                {getTurnMessage()}
-              </Text>
+            {(mode === "start" || (mode == "join" && !currentGame.isOpen)) && (
+              <View
+                style={{
+                  backgroundColor: "rgba(0,0,0,0.3)",
+                  marginBottom: 20,
+                  borderRadius: 10,
+                  padding: 10,
+                }}
+              >
+                <Text style={styles.subtitle}>Votre numéro secret est</Text>
+                <Text style={styles.number}>
+                  {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
+                </Text>
+                <Text
+                  style={[textStyle.white, textStyle.centered, textStyle.h5]}
+                >
+                  (Mais vous le dites pas, hein ?)
+                </Text>
+              </View>
             )}
+            {turn && <Text style={[styles.subtitle]}>{getTurnMessage()}</Text>}
             {mode === "start" && currentGame.isOpen ? (
               <View>
                 <Text style={styles.text}>En attente d'un autre joueur...</Text>
@@ -266,7 +280,10 @@ const GameScreen = ({ route, navigation }: any) => {
           onDigitChange={setChosenNumber}
           onBegin={startGame}
           visible={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
+          onClose={() => {
+            setIsModalOpen(false);
+            navigation.goBack();
+          }}
         />
       )}
     </View>
@@ -285,7 +302,6 @@ const styles = StyleSheet.create({
   number: {
     fontFamily: "AutourOne-Regular",
     fontSize: 62,
-    marginBottom: 20,
     textAlign: "center",
     color: "white",
   },

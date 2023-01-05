@@ -1,6 +1,12 @@
 import { StyleSheet } from "react-native";
 
 export const textStyle = StyleSheet.create({
+  white: {
+    color: "white",
+  },
+  centered: {
+    textAlign: "center",
+  },
   h4: {
     fontFamily: "AutourOne-Regular",
     fontSize: 15,
