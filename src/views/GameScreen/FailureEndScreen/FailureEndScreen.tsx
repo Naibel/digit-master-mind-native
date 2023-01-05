@@ -32,7 +32,11 @@ const FailureEndScreen = ({
         buttonStyle.shadow,
         buttonStyle.flexRow,
       ]}
-      onPress={() => navigation.goBack()}
+      onPress={() =>
+        navigation.navigate("Home", {
+          startNewGame: true,
+        })
+      }
     >
       <Image
         style={{ marginRight: 10 }}

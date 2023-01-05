@@ -11,6 +11,7 @@ import firestore from "@react-native-firebase/firestore";
 
 import { HowToPlayModal, JoinGameModal, StartGameModal } from "../../modals";
 import { buttonStyle } from "../../styles/buttons";
+import { useRoute } from "@react-navigation/native";
 
 const HomeModals = ({
   navigation,
@@ -56,6 +57,13 @@ const Home = ({ navigation }: any) => {
   const [openGames, setOpenGames] = useState<any[]>([]);
 
   const games = firestore().collection("games");
+  const route = useRoute<any>();
+
+  useEffect(() => {
+    if (route?.params?.startNewGame) {
+      setModalOpened("start");
+    }
+  }, [route]);
 
   useEffect(() => {
     let unsubscribe = games.onSnapshot((snapshot) => {
