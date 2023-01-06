@@ -41,7 +41,6 @@ const styles = StyleSheet.create({
   input: {
     fontFamily: "AutourOne-Regular",
     color: "#7A693C",
-    margin: 2,
     backgroundColor: "#FFF8E7",
     borderRadius: 10,
     padding: 10,

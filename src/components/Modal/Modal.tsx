@@ -33,9 +33,7 @@ const Modal = ({ visible, children, onClose }: ModalProps) => (
         >
           <Text style={styles.icon}>&times;</Text>
         </TouchableOpacity>
-        <View style={styles.spacing} />
         <View style={styles.content}>{children}</View>
-        <View style={styles.spacing} />
       </View>
     </View>
   </RNModal>
@@ -48,7 +46,6 @@ export const styles = StyleSheet.create({
   centeredView: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "stretch",
     backgroundColor: "rgba(0,0,0,0.3)",
   },
   modalText: {
@@ -62,7 +59,6 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 10,
     paddingHorizontal: 10,
-    alignItems: "stretch",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -71,7 +67,6 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 10,
-    flex: 1,
   },
   content: {
     display: "flex",
