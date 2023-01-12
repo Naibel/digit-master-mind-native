@@ -221,7 +221,7 @@ const GameScreen = ({ route, navigation }: any) => {
                     Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
                   </Text>
                 )}
-                <View style={{ marginBottom: 20 }}>
+                <View style={{ marginTop: 20, marginBottom: 20 }}>
                   <Text style={[styles.subtitle, { marginBottom: 20 }]}>
                     Devinez le numéro de votre adversaire !
                   </Text>
@@ -299,6 +299,5 @@ const styles = StyleSheet.create({
     fontFamily: "AutourOne-Regular",
     textAlign: "center",
     color: "white",
-    marginBottom: 20,
   },
 });
