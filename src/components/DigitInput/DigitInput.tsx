@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
+import checkDigit from "../../helpers/checkDigit";
 import { buttonStyle } from "../../styles/buttons";
 
 const DigitInput = ({
@@ -7,23 +8,13 @@ const DigitInput = ({
 }: {
   onDigitChange: (value: string) => void;
 }) => {
-  const [value, setValue] = useState("");
+  const [digit, setDigit] = useState("");
 
   const onChanged = (text: string) => {
-    const lastEnteredValue = text[text.length - 1];
-    //This test will only launches if you add a new number, not when you remove one
-    const isThereAlreadyThisValue =
-      text.length > value.length && value.indexOf(lastEnteredValue) > -1;
-
-    if (
-      (value.length === 0 && text === "0") ||
-      isThereAlreadyThisValue ||
-      text.match(/[^0-9]/g)
-    ) {
-      return false;
-    }
-    setValue(text);
-    onDigitChange(text);
+    checkDigit(text, digit, () => {
+      setDigit(text);
+      onDigitChange(text);
+    });
   };
 
   return (
@@ -31,7 +22,7 @@ const DigitInput = ({
       style={[styles.input, buttonStyle.shadow]}
       keyboardType="numeric"
       onChangeText={onChanged}
-      value={value}
+      value={digit}
       maxLength={4} //allows only 1 number
     />
   );
