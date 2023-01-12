@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import { useRoute } from "@react-navigation/native";
+import checkDigit from "../../helpers/checkDigit";
 
 import HomeModals from "./HomeModals";
 import HomeButtons from "./HomeButtons";

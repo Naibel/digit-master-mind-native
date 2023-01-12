@@ -4,29 +4,20 @@ import checkDigit from "../../utils/checkDigit";
 import { buttonStyle } from "../../styles/buttons";
 
 const DigitInput = ({
+  digit,
   onDigitChange,
 }: {
+  digit: string;
   onDigitChange: (value: string) => void;
-}) => {
-  const [digit, setDigit] = useState("");
-
-  const onChanged = (text: string) => {
-    checkDigit(text, digit, () => {
-      setDigit(text);
-      onDigitChange(text);
-    });
-  };
-
-  return (
-    <TextInput
-      style={[styles.input, buttonStyle.shadow]}
-      keyboardType="numeric"
-      onChangeText={onChanged}
-      value={digit}
-      maxLength={4} //allows only 1 number
-    />
-  );
-};
+}) => (
+  <TextInput
+    style={[styles.input, buttonStyle.shadow]}
+    keyboardType="numeric"
+    onChangeText={onDigitChange}
+    value={digit}
+    maxLength={4} //allows only 1 number
+  />
+);
 
 const styles = StyleSheet.create({
   input: {

@@ -5,6 +5,7 @@ import firestore from "@react-native-firebase/firestore";
 import { DigitInput, Modal } from "../../../components";
 import { buttonStyle } from "../../../styles/buttons";
 import { textStyle } from "../../../styles/text";
+import checkDigit from "../../../utils/checkDigit";
 
 export type UserBGameModalProps = {
   route: any;
@@ -35,8 +36,10 @@ const UserBGameModal = ({
     onClose();
   };
 
-  const onChange = (value: string) => {
-    setValue(value);
+  const onChange = (newDigit: string) => {
+    checkDigit(newDigit, value, () => {
+      setValue(newDigit);
+    });
   };
 
   const onModalClose = () => {
@@ -50,7 +53,7 @@ const UserBGameModal = ({
       <Text style={textStyle.modalTitle}>
         Allez hop ! Donnez-nous votre numéro secret !
       </Text>
-      <DigitInput onDigitChange={onChange} />
+      <DigitInput onDigitChange={onChange} digit={value} />
       <View style={{ marginVertical: 20 }}>
         <Text style={textStyle.h6}>
           1. Choisissez un nombre à quatres chiffres.

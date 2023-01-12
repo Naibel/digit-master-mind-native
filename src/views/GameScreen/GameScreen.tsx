@@ -17,6 +17,7 @@ import { Attempts } from "./Attempts";
 import { buttonStyle } from "../../styles/buttons";
 import { FailureEndScreen } from "./FailureEndScreen";
 import { textStyle } from "../../styles/text";
+import checkDigit from "../../utils/checkDigit";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -149,6 +150,12 @@ const GameScreen = ({ route, navigation }: any) => {
     if (yourTurn) return "C'est ton tour !";
   };
 
+  const onAttemptChange = (newDigit: string) => {
+    checkDigit(newDigit, attempt, () => {
+      setAttempt(newDigit);
+    });
+  };
+
   return (
     <View style={styles.content}>
       <ImageBackground
@@ -218,7 +225,7 @@ const GameScreen = ({ route, navigation }: any) => {
                   <Text style={[styles.subtitle, { marginBottom: 20 }]}>
                     Devinez le numéro de votre adversaire !
                   </Text>
-                  <DigitInput onDigitChange={setAttempt} />
+                  <DigitInput digit={attempt} onDigitChange={onAttemptChange} />
                   <TouchableOpacity
                     style={[
                       { marginTop: 20 },
