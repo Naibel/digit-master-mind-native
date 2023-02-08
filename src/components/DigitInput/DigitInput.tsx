@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput } from "react-native";
-import checkDigit from "../../utils/checkDigit";
+import { StyleSheet, Text } from "react-native";
 import { buttonStyle } from "../../styles/buttons";
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
+
+const CELL_COUNT = 4;
 
 const DigitInput = ({
   digit,
@@ -9,26 +16,54 @@ const DigitInput = ({
 }: {
   digit: string;
   onDigitChange: (value: string) => void;
-}) => (
-  <TextInput
-    style={[styles.input, buttonStyle.shadow]}
-    keyboardType="numeric"
-    onChangeText={onDigitChange}
-    value={digit}
-    maxLength={4} //allows only 1 number
-  />
-);
+}) => {
+  const [value, setValue] = useState("");
+  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
+
+  return (
+    <CodeField
+      ref={ref}
+      value={digit}
+      onChangeText={onDigitChange}
+      cellCount={CELL_COUNT}
+      keyboardType="number-pad"
+      textContentType="oneTimeCode"
+      renderCell={({ index, symbol, isFocused }) => (
+        <Text
+          key={index}
+          style={[
+            styles.cell,
+            buttonStyle.shadow,
+            isFocused && styles.focusCell,
+          ]}
+          onLayout={getCellOnLayoutHandler(index)}
+        >
+          {symbol || (isFocused ? <Cursor /> : null)}
+        </Text>
+      )}
+    />
+  );
+};
 
 const styles = StyleSheet.create({
-  input: {
+  cell: {
     fontFamily: "AutourOne-Regular",
-    color: "#7A693C",
+    width: 66,
+    height: 76,
+    lineHeight: 76,
+    fontSize: 50,
+    borderRadius: 3,
     backgroundColor: "#FFF8E7",
-    borderRadius: 10,
-    padding: 10,
     textAlign: "center",
-    fontSize: 48,
-    letterSpacing: 20,
+    color: "#7A693C",
+  },
+  focusCell: {
+    backgroundColor: "#EADFC3",
+    color: "#51362F",
   },
 });
 

@@ -168,7 +168,7 @@ const GameScreen = ({ route, navigation }: any) => {
         }}
         source={require("../../../assets/img/clouds.png")}
       ></ImageBackground>
-      <View style={{ paddingVertical: 60, paddingHorizontal: 48, flex: 1 }}>
+      <View style={{ paddingVertical: 60, paddingHorizontal: 42, flex: 1 }}>
         {finished ? (
           (mode === "start" && currentGame.a_win) ||
           (mode === "join" && currentGame.b_win) ? (
@@ -197,14 +197,9 @@ const GameScreen = ({ route, navigation }: any) => {
                   padding: 10,
                 }}
               >
-                <Text style={styles.subtitle}>Votre numéro secret est</Text>
-                <Text style={styles.number}>
+                <Text style={styles.subtitle}>
+                  Votre numéro secret est{" "}
                   {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
-                </Text>
-                <Text
-                  style={[textStyle.white, textStyle.centered, textStyle.h5]}
-                >
-                  (Mais vous le dites pas, hein ?)
                 </Text>
               </View>
             )}
@@ -222,9 +217,6 @@ const GameScreen = ({ route, navigation }: any) => {
                   </Text>
                 )}
                 <View style={{ marginTop: 20, marginBottom: 20 }}>
-                  <Text style={[styles.subtitle, { marginBottom: 20 }]}>
-                    Devinez le numéro de votre adversaire !
-                  </Text>
                   <DigitInput digit={attempt} onDigitChange={onAttemptChange} />
                   <TouchableOpacity
                     style={[
