@@ -4,7 +4,6 @@ import {
   ImageBackground,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from "react-native";
 import firestore from "@react-native-firebase/firestore";
@@ -14,10 +13,9 @@ import { DigitInput } from "../../components";
 import { UserBStartGameModal } from "../Home/modals";
 import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
-import { buttonStyle } from "../../styles/buttons";
 import { FailureEndScreen } from "./FailureEndScreen";
-import { textStyle } from "../../styles/text";
 import checkDigit from "../../utils/checkDigit";
+import { Keyboard } from "../../components/Keyboard/Keyboard";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -218,30 +216,19 @@ const GameScreen = ({ route, navigation }: any) => {
                 )}
                 <View style={{ marginTop: 20, marginBottom: 20 }}>
                   <DigitInput digit={attempt} onDigitChange={onAttemptChange} />
-                  <TouchableOpacity
-                    style={[
-                      { marginTop: 20 },
-                      buttonStyle.button,
-                      buttonStyle.light,
-                      buttonStyle.shadow,
-                      isDisabled && buttonStyle.disabled,
-                    ]}
-                    disabled={isDisabled}
-                    onPress={handleAttempt}
-                  >
-                    <Text style={[buttonStyle.text, buttonStyle.lightText]}>
-                      Valider
-                    </Text>
-                  </TouchableOpacity>
+                  <Attempts
+                    userData={
+                      mode === "join"
+                        ? currentGame?.b_attempts
+                        : currentGame?.a_attempts
+                    }
+                  />
+                  <Keyboard
+                    onValidPress={handleAttempt}
+                    isDisabled={isDisabled}
+                  />
                 </View>
                 {/* <Progress value={timeleft * 10} /> */}
-                <Attempts
-                  userData={
-                    mode === "join"
-                      ? currentGame?.b_attempts
-                      : currentGame?.a_attempts
-                  }
-                />
               </View>
             )}
           </>

@@ -4,7 +4,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 const Attempts = ({ userData }: { userData: any }) => {
   if (!userData) return null;
   return (
-    <ScrollView style={{ height: 291 }}>
+    <ScrollView style={{ height: 300 }}>
       {userData.map((attempt: any, index: number) => (
         <View key={index} style={attempsStyles.attemptsView}>
           <View style={attempsStyles.numberView}>
