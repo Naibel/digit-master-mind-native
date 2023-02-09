@@ -35,11 +35,7 @@ const DigitInput = ({
       renderCell={({ index, symbol, isFocused }) => (
         <Text
           key={index}
-          style={[
-            styles.cell,
-            buttonStyle.shadow,
-            isFocused && styles.focusCell,
-          ]}
+          style={[styles.cell, isFocused && styles.focusCell]}
           onLayout={getCellOnLayoutHandler(index)}
         >
           {symbol || (isFocused ? <Cursor /> : null)}
@@ -57,9 +53,17 @@ const styles = StyleSheet.create({
     lineHeight: 76,
     fontSize: 50,
     borderRadius: 3,
+    borderColor: "#E0D0A7",
     backgroundColor: "#FFF8E7",
     textAlign: "center",
     color: "#7A693C",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 0,
   },
   focusCell: {
     backgroundColor: "#EADFC3",

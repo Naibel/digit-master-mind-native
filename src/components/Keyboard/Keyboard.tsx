@@ -2,48 +2,80 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { buttonStyle } from "../../styles/buttons";
 
-export const Keyboard = ({
+const Keyboard = ({
   onValidPress,
+  onButtonPress,
   isDisabled,
 }: {
   onValidPress: () => void;
+  onButtonPress: (value: string) => void;
   isDisabled: boolean;
 }) => {
   return (
     <View style={{ height: 170, flexDirection: "column" }}>
       <View style={{ flex: 1, flexDirection: "row" }}>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("0")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>0</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("1")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>1</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("2")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>2</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("3")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>3</Text>
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1, flexDirection: "row" }}>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("4")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>4</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("5")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>5</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("6")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>6</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("7")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>7</Text>
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1, flexDirection: "row" }}>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("8")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>8</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[buttonStyle.shadow, styles.content]}>
+        <TouchableOpacity
+          onPress={() => onButtonPress("9")}
+          style={[buttonStyle.shadow, styles.content]}
+        >
           <Text style={[buttonStyle.text, buttonStyle.lightText]}>9</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -62,6 +94,8 @@ export const Keyboard = ({
     </View>
   );
 };
+
+export default Keyboard;
 
 const styles = StyleSheet.create({
   content: {
