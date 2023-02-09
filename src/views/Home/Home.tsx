@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+} from "react-native";
 import { useRoute } from "@react-navigation/native";
-import checkDigit from "../../helpers/checkDigit";
+import LinearGradient from "react-native-linear-gradient";
 
 import HomeModals from "./HomeModals";
 import HomeButtons from "./HomeButtons";
@@ -20,55 +27,57 @@ const Home = ({ navigation }: any) => {
   }, [route]);
 
   return (
-    <View style={styles.centeredView}>
-      <HomeModals
-        navigation={navigation}
-        onClose={() => setModalOpened(null)}
-        modalOpened={modalOpened}
-      />
-      <View style={styles.menu}>
-        <ImageBackground
-          style={{ flex: 1, justifyContent: "center" }}
-          source={require("../../../assets/img/clouds.png")}
-        >
-          <Image
-            style={{
-              width: 318,
-              height: 214,
-              alignSelf: "center",
-            }}
-            source={require("../../../assets/img/logo.png")}
-          />
-        </ImageBackground>
-        <ImageBackground
-          style={{ flex: 1.5, justifyContent: "flex-end", padding: 20 }}
-          source={require("../../../assets/img/grass_bg_high.png")}
-          resizeMode="cover"
-        >
-          <HomeButtons onPress={(value) => setModalOpened(value)} />
-          <View>
-            <Text
+    <LinearGradient
+      start={{ x: 0.2, y: 0.8 }}
+      end={{ x: 0.2, y: 0.81 }}
+      colors={["#78C6FF", "#3CBB50"]}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
+        <HomeModals
+          navigation={navigation}
+          onClose={() => setModalOpened(null)}
+          modalOpened={modalOpened}
+        />
+        <View style={styles.menu}>
+          <ImageBackground
+            style={{ flex: 1, justifyContent: "center" }}
+            source={require("../../../assets/img/clouds.png")}
+          >
+            <Image
               style={{
-                color: "white",
-                textAlign: "center",
-                fontFamily: "AutourOne-Regular",
-                marginTop: 80,
+                width: 318,
+                height: 214,
+                alignSelf: "center",
               }}
-            >
-              2022-2024 by Chawki & Dorian
-            </Text>
-          </View>
-        </ImageBackground>
-      </View>
-    </View>
+              source={require("../../../assets/img/logo.png")}
+            />
+          </ImageBackground>
+          <ImageBackground
+            style={{ flex: 1.5, justifyContent: "flex-end", padding: 20 }}
+            source={require("../../../assets/img/grass_bg_high.png")}
+            resizeMode="cover"
+          >
+            <HomeButtons onPress={(value) => setModalOpened(value)} />
+            <View>
+              <Text
+                style={{
+                  width: 318,
+                  height: 214,
+                  alignSelf: "center",
+                }}
+              >
+                2022-2024 by Chawki & Dorian
+              </Text>
+            </View>
+          </ImageBackground>
+        </View>
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    backgroundColor: "#78C6FF",
-  },
   menu: {
     padding: 0,
     flex: 1,
