@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { StyleSheet, Text } from "react-native";
-import { buttonStyle } from "../../styles/buttons";
 import {
   CodeField,
   Cursor,
@@ -13,9 +12,11 @@ const CELL_COUNT = 4;
 const DigitInput = ({
   digit,
   onDigitChange,
+  noKeyboard,
 }: {
   digit: string;
   onDigitChange: (value: string) => void;
+  noKeyboard: boolean;
 }) => {
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -30,7 +31,7 @@ const DigitInput = ({
       value={digit}
       onChangeText={onDigitChange}
       cellCount={CELL_COUNT}
-      keyboardType="number-pad"
+      keyboardType={noKeyboard ? undefined : "number-pad"}
       textContentType="oneTimeCode"
       renderCell={({ index, symbol, isFocused }) => (
         <Text
