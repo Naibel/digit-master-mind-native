@@ -4,7 +4,19 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 const Attempts = ({ userData }: { userData: any }) => {
   if (!userData) return null;
   return (
-    <ScrollView style={{ height: 300 }}>
+    <ScrollView
+      style={{
+        flex: 1,
+        backgroundColor: "rgba(255,255,255,0.2)",
+        borderRadius: 10,
+        padding: 10,
+        marginTop: 20,
+        borderColor: "rgba(255,255,255,0.3)",
+        borderWidth: 2,
+        borderStyle: "dashed",
+      }}
+    >
+      <Text style={attempsStyles.attempts}>Tes précédentes tentatives</Text>
       {userData.map((attempt: any, index: number) => (
         <View key={index} style={attempsStyles.attemptsView}>
           <View style={attempsStyles.numberView}>
@@ -51,6 +63,7 @@ const attempsStyles = StyleSheet.create({
     fontFamily: "AutourOne-Regular",
     textAlign: "center",
     marginVertical: 5,
+    color: "white",
   },
   bulls: {
     fontFamily: "AutourOne-Regular",

@@ -180,7 +180,14 @@ const GameScreen = ({ route, navigation }: any) => {
           }}
           source={require("../../../assets/img/clouds.png")}
         ></ImageBackground>
-        <View style={{ paddingVertical: 60, paddingHorizontal: 42, flex: 1 }}>
+        <View
+          style={{
+            paddingVertical: 10,
+            paddingHorizontal: 42,
+            flex: 1,
+            alignContent: "stretch",
+          }}
+        >
           {finished ? (
             (mode === "start" && currentGame.a_win) ||
             (mode === "join" && currentGame.b_win) ? (
@@ -219,7 +226,16 @@ const GameScreen = ({ route, navigation }: any) => {
                 </View>
               )}
               {turn && (
-                <Text style={[styles.subtitle]}>{getTurnMessage()}</Text>
+                <Text
+                  style={[
+                    styles.subtitle,
+                    {
+                      marginBottom: 10,
+                    },
+                  ]}
+                >
+                  {getTurnMessage()}
+                </Text>
               )}
               {mode === "start" && currentGame.isOpen ? (
                 <View>
@@ -229,9 +245,20 @@ const GameScreen = ({ route, navigation }: any) => {
                   <ActivityIndicator size="large" color="white" />
                 </View>
               ) : (
-                <View>
-                  <View style={{ marginTop: 20, marginBottom: 20 }}>
+                <View style={{ flex: 1, alignContent: "stretch" }}>
+                  <View
+                    style={{
+                      flex: 1,
+                      alignContent: "stretch",
+                      marginTop: 0,
+                      marginBottom: 20,
+                    }}
+                  >
+                    <Text style={[styles.text, { marginBottom: 10 }]}>
+                      Devinez le numéro de votre adversaire !{" "}
+                    </Text>
                     <DigitInput
+                      noKeyboard
                       digit={attempt}
                       onDigitChange={onAttemptChange}
                     />
@@ -242,22 +269,25 @@ const GameScreen = ({ route, navigation }: any) => {
                           : currentGame?.a_attempts
                       }
                     />
-                    <Keyboard
-                      onButtonPress={onButtonPressedChange}
-                      onValidPress={handleAttempt}
-                      isDisabled={isDisabled}
-                    />
                   </View>
-                  {/* <Progress value={timeleft * 10} /> */}
                 </View>
               )}
             </>
           )}
         </View>
         <ImageBackground
-          style={{ height: 200, zIndex: -1 }}
+          style={{ height: 200, zIndex: -1, paddingHorizontal: 42 }}
           source={require("../../../assets/img/grass_bg_low.png")}
-        ></ImageBackground>
+        >
+          {mode === "start" && currentGame.isOpen ? null : (
+            <Keyboard
+              digit={attempt}
+              onButtonPress={onButtonPressedChange}
+              onValidPress={handleAttempt}
+              isDisabled={isDisabled}
+            />
+          )}
+        </ImageBackground>
         {mode === "join" && (
           <UserBStartGameModal
             route={route}
