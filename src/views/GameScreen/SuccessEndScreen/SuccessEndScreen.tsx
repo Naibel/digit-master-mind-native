@@ -18,19 +18,23 @@ const SuccessEndScreen = ({
   adversaryNumber: number;
 }) => (
   <SafeAreaView style={endStyles.content}>
-    <Text style={[endStyles.title, { marginBottom: 20 }]}>Bravo !</Text>
-    <Text style={endStyles.subtitle}>
-      Le numéro secret de votre adversaire était
-    </Text>
-    <Text style={[endStyles.title, { fontSize: 48, marginBottom: 20 }]}>
-      {adversaryNumber}
-    </Text>
     <View style={endStyles.circle}>
       <Image
         style={{ width: 235, height: 235 }}
         source={require("../../../../assets/img/trophy.png")}
       />
     </View>
+    <Text style={endStyles.subtitle}>
+      Le numéro secret de votre adversaire était
+    </Text>
+    <Text style={[endStyles.title, { fontSize: 48, marginBottom: 20 }]}>
+      {adversaryNumber}
+    </Text>
+    <Text style={endStyles.subtitle}>
+      Vous avez deviné ce numéro au bout de
+    </Text>
+    <Text style={endStyles.subtitle}>12</Text>
+    <Text style={endStyles.subtitle}>tentatives.</Text>
     <View style={{ flex: 1 }} />
     <TouchableOpacity
       style={[

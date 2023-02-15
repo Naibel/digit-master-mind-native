@@ -20,7 +20,7 @@ const HomeModals = ({ navigation, onClose, modalOpened }: HomeModalsProps) => (
       visible={modalOpened === "join"}
       onClose={onClose}
     />
-    <HowToPlayModal visible={modalOpened === "htp"} onClose={onClose} />
+    <HowToPlayModal visible={modalOpened === "help"} onClose={onClose} />
   </>
 );
 

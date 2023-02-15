@@ -31,7 +31,6 @@ const DigitInput = ({
       value={digit}
       onChangeText={onDigitChange}
       cellCount={CELL_COUNT}
-      keyboardType={noKeyboard ? undefined : "number-pad"}
       textContentType="oneTimeCode"
       renderCell={({ index, symbol, isFocused }) => (
         <Text
@@ -55,6 +54,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     borderRadius: 3,
     borderColor: "#E0D0A7",
+    borderBottomWidth: 3,
     backgroundColor: "#FFF8E7",
     textAlign: "center",
     color: "#7A693C",
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.2,
     shadowRadius: 0,
+    elevation: 1,
   },
   focusCell: {
     backgroundColor: "#EADFC3",

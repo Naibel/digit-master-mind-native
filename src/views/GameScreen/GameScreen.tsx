@@ -182,8 +182,8 @@ const GameScreen = ({ route, navigation }: any) => {
         ></ImageBackground>
         <View
           style={{
-            paddingVertical: 10,
-            paddingHorizontal: 42,
+            paddingTop: 20,
+            paddingHorizontal: 20,
             flex: 1,
             alignContent: "stretch",
           }}
@@ -276,10 +276,15 @@ const GameScreen = ({ route, navigation }: any) => {
           )}
         </View>
         <ImageBackground
-          style={{ height: 200, zIndex: -1, paddingHorizontal: 42 }}
+          style={{
+            height: 200,
+            zIndex: -1,
+            paddingHorizontal: 20,
+            paddingBottom: 20,
+          }}
           source={require("../../../assets/img/grass_bg_low.png")}
         >
-          {mode === "start" && currentGame.isOpen ? null : (
+          {finished || (mode === "start" && currentGame.isOpen) ? null : (
             <Keyboard
               digit={attempt}
               onButtonPress={onButtonPressedChange}

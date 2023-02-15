@@ -26,7 +26,7 @@ const HomeButtons = ({ onPress }: { onPress: (value: ModalType) => void }) => (
     <View>
       <TouchableOpacity
         style={[styles.ruleButton]}
-        onPress={() => onPress("htp")}
+        onPress={() => onPress("help")}
       >
         <Image
           style={{

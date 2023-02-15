@@ -13,7 +13,7 @@ import LinearGradient from "react-native-linear-gradient";
 import HomeModals from "./HomeModals";
 import HomeButtons from "./HomeButtons";
 
-export type ModalType = "start" | "join" | "htp" | null;
+export type ModalType = "start" | "join" | "help" | null;
 
 const Home = ({ navigation }: any) => {
   const [modalOpened, setModalOpened] = useState<ModalType>(null);
@@ -40,6 +40,7 @@ const Home = ({ navigation }: any) => {
           modalOpened={modalOpened}
         />
         <View style={styles.menu}>
+          {/* HAUT DE LA PAGE */}
           <ImageBackground
             style={{ flex: 1, justifyContent: "center" }}
             source={require("../../../assets/img/clouds.png")}
@@ -53,6 +54,7 @@ const Home = ({ navigation }: any) => {
               source={require("../../../assets/img/logo.png")}
             />
           </ImageBackground>
+          {/* BAS DE LA PAGE */}
           <ImageBackground
             style={{ flex: 1.5, justifyContent: "flex-end", padding: 20 }}
             source={require("../../../assets/img/grass_bg_high.png")}
@@ -62,9 +64,10 @@ const Home = ({ navigation }: any) => {
             <View>
               <Text
                 style={{
-                  width: 318,
-                  height: 214,
-                  alignSelf: "center",
+                  color: "white",
+                  textAlign: "center",
+                  fontFamily: "AutourOne-Regular",
+                  marginTop: 40,
                 }}
               >
                 2022-2024 by Chawki & Dorian
@@ -79,7 +82,7 @@ const Home = ({ navigation }: any) => {
 
 const styles = StyleSheet.create({
   menu: {
-    padding: 0,
+    paddingVertical: 10,
     flex: 1,
     justifyContent: "space-around",
     alignItems: "stretch",
