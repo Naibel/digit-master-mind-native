@@ -11,7 +11,7 @@ import firestore from "@react-native-firebase/firestore";
 
 import usePlay from "../../hooks/usePlay";
 import { DigitInput } from "../../components";
-import { StartGameModal } from "../../modals";
+import { StartGameModal } from "../Home/modals";
 import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
 import { buttonStyle } from "../../styles/buttons";
@@ -49,8 +49,9 @@ const GameScreen = ({ route, navigation }: any) => {
         return;
       }
       const newCount = count - 1;
-      setTimeleft(newCount >= 0 ? newCount : 0);
       count = newCount >= 0 ? newCount : 0;
+
+      setTimeleft(count);
       console.log("tt ", count);
       if (count === 0) {
         games.doc(id).update({ turn: mode === "join" ? "a" : "b" });
@@ -66,7 +67,7 @@ const GameScreen = ({ route, navigation }: any) => {
     }, 10000);
 
     return () => clearTimeout(timer);
-  });
+  }, []);
 
   useEffect(() => {
     console.log("turn => ", turn);

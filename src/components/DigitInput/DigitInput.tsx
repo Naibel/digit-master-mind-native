@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, TextInput } from "react-native";
-import checkDigit from "../../helpers/checkDigit";
+import checkDigit from "../../utils/checkDigit";
 import { buttonStyle } from "../../styles/buttons";
 
 const DigitInput = ({

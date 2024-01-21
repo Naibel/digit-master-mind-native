@@ -1,26 +1,50 @@
 import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { DigitInput, Modal, ModalProps } from "../../components";
-import { buttonStyle } from "../../styles/buttons";
-import { textStyle } from "../../styles/text";
+import firestore from "@react-native-firebase/firestore";
+
+import { DigitInput, Modal } from "../../../components";
+import { buttonStyle } from "../../../styles/buttons";
+import { textStyle } from "../../../styles/text";
+
+export type StartGameModalProps = {
+  navigation: any;
+  visible: boolean;
+  onClose: () => void;
+};
 
 const StartGameModal = ({
-  onDigitChange,
-  onBegin,
+  navigation,
   visible,
   onClose,
-}: ModalProps) => {
+}: StartGameModalProps) => {
   const [value, setValue] = useState<string>("");
   const isDisabled = value.length < 4;
 
+  const games = firestore().collection("games");
+
+  const onPress = () => {
+    games
+      .add({
+        isOpen: true,
+        a_digit: value,
+      })
+      .then((docRef) => {
+        navigation.navigate("GameScreen", {
+          id: docRef.id,
+          mode: "start",
+        });
+        console.log(docRef.id);
+        onClose();
+      })
+      .catch((error) => console.error("Error adding Tutorial: ", error));
+  };
+
   const onChange = (value: string) => {
     setValue(value);
-    onDigitChange && onDigitChange(value);
   };
 
   const onModalClose = () => {
     setValue("");
-    onDigitChange && onDigitChange("");
     onClose();
   };
 
@@ -47,7 +71,7 @@ const StartGameModal = ({
           isDisabled && buttonStyle.disabled,
         ]}
         disabled={isDisabled}
-        onPress={onBegin}
+        onPress={onPress}
       >
         <Text style={[buttonStyle.text, buttonStyle.whiteText]}>
           On commence !

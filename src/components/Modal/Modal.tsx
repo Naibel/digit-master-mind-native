@@ -10,12 +10,8 @@ import {
 export type ModalProps = {
   visible: boolean;
   onClose: () => void;
-  children?: ReactNode;
-  onDigitChange?: (value: string) => void;
-  onBegin?: () => void;
-  openGames?: any[];
   navigation?: any;
-  route?: any;
+  children?: ReactNode;
 };
 
 const Modal = ({ visible, children, onClose }: ModalProps) => (

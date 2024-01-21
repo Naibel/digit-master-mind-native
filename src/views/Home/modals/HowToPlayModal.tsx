@@ -1,7 +1,8 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
-import { Modal, ModalProps, styles } from "../../components";
-import { textStyle } from "../../styles/text";
+
+import { Modal, ModalProps, styles } from "../../../components";
+import { textStyle } from "../../../styles/text";
 
 const HowToPlay = ({ visible, onClose }: ModalProps) => (
   <Modal visible={visible} onClose={onClose}>
@@ -29,7 +30,7 @@ const HowToPlay = ({ visible, onClose }: ModalProps) => (
           width: 155,
           height: 119,
         }}
-        source={require("../../../assets/img/cows_tutorial.png")}
+        source={require("../../../../assets/img/cows_tutorial.png")}
       />
       <Text
         style={[
@@ -63,7 +64,7 @@ const HowToPlay = ({ visible, onClose }: ModalProps) => (
           width: 134,
           height: 90,
         }}
-        source={require("../../../assets/img/bulls_tutorial.png")}
+        source={require("../../../../assets/img/bulls_tutorial.png")}
       />
     </View>
     <Text
