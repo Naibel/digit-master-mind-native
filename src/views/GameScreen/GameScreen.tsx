@@ -11,7 +11,7 @@ import firestore from "@react-native-firebase/firestore";
 
 import usePlay from "../../hooks/usePlay";
 import { DigitInput } from "../../components";
-import { StartGameModal } from "../Home/modals";
+import { UserBStartGameModal } from "../Home/modals";
 import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
 import { buttonStyle } from "../../styles/buttons";
@@ -22,11 +22,9 @@ const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
 
   const [finished, setFinished] = useState<boolean>(false);
-  const [disabled, setDisabled] = useState<boolean>(true);
   const [timeleft, setTimeleft] = useState<number>(10);
   const [turn, setTurn] = useState<string>("");
   const [attempt, setAttempt] = useState<string>("");
-  const [chosenNumber, setChosenNumber] = useState<string>("");
   const [currentGame, setCurrentGame] = useState<any>({});
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -56,25 +54,15 @@ const GameScreen = ({ route, navigation }: any) => {
       if (count === 0) {
         games.doc(id).update({ turn: mode === "join" ? "a" : "b" });
         clearInterval(timer);
-        setDisabled(true);
       }
     }, 1000);
   };
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setDisabled(true);
-    }, 10000);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     console.log("turn => ", turn);
 
     if (turn === (mode === "join" ? "b" : "a")) {
       setTimeleft(10);
-      setDisabled(false);
       handleStart();
     } else {
       console.log("clear");
@@ -112,18 +100,7 @@ const GameScreen = ({ route, navigation }: any) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //Only when joining a game
-  const startGame = () => {
-    games.doc(id).update({
-      isOpen: false,
-      b_digit: chosenNumber,
-    });
-    setIsModalOpen(false);
-  };
-
   const handleAttempt = () => {
-    setDisabled(true);
-
     // clearInterval(timer);
     setTimeleft(0);
 
@@ -163,7 +140,6 @@ const GameScreen = ({ route, navigation }: any) => {
         .then(() => {
           setAttempt("");
           setTimeleft(10);
-          setDisabled(false);
         });
     }
   };
@@ -277,13 +253,12 @@ const GameScreen = ({ route, navigation }: any) => {
         source={require("../../../assets/img/grass_bg_low.png")}
       ></ImageBackground>
       {mode === "join" && (
-        <StartGameModal
-          onDigitChange={setChosenNumber}
-          onBegin={startGame}
+        <UserBStartGameModal
+          route={route}
+          navigation={navigation}
           visible={isModalOpen}
           onClose={() => {
             setIsModalOpen(false);
-            navigation.goBack();
           }}
         />
       )}

@@ -6,17 +6,17 @@ import { DigitInput, Modal } from "../../../components";
 import { buttonStyle } from "../../../styles/buttons";
 import { textStyle } from "../../../styles/text";
 
-export type StartGameModalProps = {
+export type UserAStartGameModalProps = {
   navigation: any;
   visible: boolean;
   onClose: () => void;
 };
 
-const StartGameModal = ({
+const UserAStartGameModal = ({
   navigation,
   visible,
   onClose,
-}: StartGameModalProps) => {
+}: UserAStartGameModalProps) => {
   const [value, setValue] = useState<string>("");
   const isDisabled = value.length < 4;
 
@@ -81,4 +81,4 @@ const StartGameModal = ({
   );
 };
 
-export default StartGameModal;
+export default UserAStartGameModal;

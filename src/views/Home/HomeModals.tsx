@@ -1,5 +1,5 @@
 import React from "react";
-import { HowToPlayModal, JoinGameModal, StartGameModal } from "./modals";
+import { HowToPlayModal, JoinGameModal, UserAStartGameModal } from "./modals";
 import { ModalType } from "./Home";
 
 interface HomeModalsProps {
@@ -10,7 +10,7 @@ interface HomeModalsProps {
 
 const HomeModals = ({ navigation, onClose, modalOpened }: HomeModalsProps) => (
   <>
-    <StartGameModal
+    <UserAStartGameModal
       navigation={navigation}
       visible={modalOpened === "start"}
       onClose={onClose}
