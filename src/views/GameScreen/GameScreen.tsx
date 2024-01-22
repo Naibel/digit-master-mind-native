@@ -5,7 +5,9 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
+  Image,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import firestore from "@react-native-firebase/firestore";
@@ -17,6 +19,7 @@ import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
 import { FailureEndScreen } from "./FailureEndScreen";
 import checkDigit from "../../utils/checkDigit";
+import { buttonStyle } from "../../styles/buttons";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -192,14 +195,12 @@ const GameScreen = ({ route, navigation }: any) => {
             (mode === "start" && currentGame.a_win) ||
             (mode === "join" && currentGame.b_win) ? (
               <SuccessEndScreen
-                navigation={navigation}
                 adversaryNumber={
                   mode === "start" ? currentGame.b_digit : currentGame.a_digit
                 }
               />
             ) : (
               <FailureEndScreen
-                navigation={navigation}
                 adversaryNumber={
                   mode === "start" ? currentGame.b_digit : currentGame.a_digit
                 }
@@ -246,6 +247,11 @@ const GameScreen = ({ route, navigation }: any) => {
                 </View>
               ) : (
                 <View style={{ flex: 1, alignContent: "stretch" }}>
+                  {yourTurn && (
+                    <Text style={styles.text}>
+                      Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
+                    </Text>
+                  )}
                   <View
                     style={{
                       flex: 1,
@@ -281,9 +287,35 @@ const GameScreen = ({ route, navigation }: any) => {
             zIndex: -1,
             paddingHorizontal: 20,
             paddingBottom: 20,
+            justifyContent: "flex-end",
           }}
           source={require("../../../assets/img/grass_bg_low.png")}
         >
+          {finished && (
+            <View>
+              <TouchableOpacity
+                style={[
+                  buttonStyle.button,
+                  buttonStyle.light,
+                  buttonStyle.shadow,
+                  buttonStyle.flexRow,
+                ]}
+                onPress={() =>
+                  navigation.navigate("Home", {
+                    startNewGame: true,
+                  })
+                }
+              >
+                <Image
+                  style={{ marginRight: 10 }}
+                  source={require("../../../assets/img/refresh.png")}
+                />
+                <Text style={[buttonStyle.lightText, buttonStyle.text]}>
+                  On refait une partie ?
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
           {finished || (mode === "start" && currentGame.isOpen) ? null : (
             <Keyboard
               digit={attempt}
