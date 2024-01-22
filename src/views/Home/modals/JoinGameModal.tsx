@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, ScrollView } from "react-native";
 import firestore from "@react-native-firebase/firestore";
 
 import { Modal, ModalProps } from "../../../components";
@@ -49,30 +49,32 @@ const JoinGameModal = ({ navigation, visible, onClose }: ModalProps) => {
           <Text style={textStyle.modalTitle}>
             Choisis la partie à rejoindre
           </Text>
-          {openGames.map((game, index) => (
-            <TouchableOpacity
-              key={index + game.id}
-              style={[
-                buttonStyle.button,
-                buttonStyle.dark,
-                { marginBottom: 20 },
-              ]}
-              onPress={() => {
-                navigation.navigate("GameScreen", {
-                  id: game.id,
-                  mode: "join",
-                });
-                onClose();
-              }}
-            >
-              <Text style={[buttonStyle.whiteText, buttonStyle.text]}>
-                Partie N°{index + 1}
-              </Text>
-              <Text style={[buttonStyle.whiteText, buttonStyle.smallText]}>
-                Id : {game.id}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          <ScrollView>
+            {openGames.map((game, index) => (
+              <TouchableOpacity
+                key={index + game.id}
+                style={[
+                  buttonStyle.button,
+                  buttonStyle.dark,
+                  { marginBottom: 20 },
+                ]}
+                onPress={() => {
+                  navigation.navigate("GameScreen", {
+                    id: game.id,
+                    mode: "join",
+                  });
+                  onClose();
+                }}
+              >
+                <Text style={[buttonStyle.whiteText, buttonStyle.text]}>
+                  Partie N°{index + 1}
+                </Text>
+                <Text style={[buttonStyle.whiteText, buttonStyle.smallText]}>
+                  Id : {game.id}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </>
       ) : (
         <>
