@@ -264,7 +264,6 @@ const GameScreen = ({ route, navigation }: any) => {
                       Devinez le numéro de votre adversaire !{" "}
                     </Text>
                     <DigitInput
-                      noKeyboard
                       digit={attempt}
                       onDigitChange={onAttemptChange}
                     />

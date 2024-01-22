@@ -12,11 +12,9 @@ const CELL_COUNT = 4;
 const DigitInput = ({
   digit,
   onDigitChange,
-  noKeyboard,
 }: {
   digit: string;
   onDigitChange: (value: string) => void;
-  noKeyboard: boolean;
 }) => {
   const [value, setValue] = useState("");
   const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
@@ -32,6 +30,7 @@ const DigitInput = ({
       onChangeText={onDigitChange}
       cellCount={CELL_COUNT}
       textContentType="oneTimeCode"
+      keyboardType="numeric"
       renderCell={({ index, symbol, isFocused }) => (
         <Text
           key={index}
