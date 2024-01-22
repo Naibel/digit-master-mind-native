@@ -20,9 +20,11 @@ export default FailureEndScreen;
 
 const endStyles = StyleSheet.create({
   content: {
+    flex: 1,
     alignContent: "center",
-    justifyContent: "space-between",
+    justifyContent: "center",
     textAlign: "center",
+    paddingHorizontal: 30,
   },
   title: {
     fontFamily: "AutourOne-Regular",
