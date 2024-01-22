@@ -1,43 +1,75 @@
 import React, { useState } from "react";
-import { StyleSheet, TextInput } from "react-native";
-import checkDigit from "../../utils/checkDigit";
-import { buttonStyle } from "../../styles/buttons";
+import { StyleSheet, Text } from "react-native";
+import {
+  CodeField,
+  Cursor,
+  useBlurOnFulfill,
+  useClearByFocusCell,
+} from "react-native-confirmation-code-field";
+
+const CELL_COUNT = 4;
 
 const DigitInput = ({
+  digit,
   onDigitChange,
+  noKeyboard,
 }: {
+  digit: string;
   onDigitChange: (value: string) => void;
+  noKeyboard: boolean;
 }) => {
-  const [digit, setDigit] = useState("");
-
-  const onChanged = (text: string) => {
-    checkDigit(text, digit, () => {
-      setDigit(text);
-      onDigitChange(text);
-    });
-  };
+  const [value, setValue] = useState("");
+  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+    value,
+    setValue,
+  });
 
   return (
-    <TextInput
-      style={[styles.input, buttonStyle.shadow]}
-      keyboardType="numeric"
-      onChangeText={onChanged}
+    <CodeField
+      ref={ref}
       value={digit}
-      maxLength={4} //allows only 1 number
+      onChangeText={onDigitChange}
+      cellCount={CELL_COUNT}
+      textContentType="oneTimeCode"
+      renderCell={({ index, symbol, isFocused }) => (
+        <Text
+          key={index}
+          style={[styles.cell, isFocused && styles.focusCell]}
+          onLayout={getCellOnLayoutHandler(index)}
+        >
+          {symbol || (isFocused ? <Cursor /> : null)}
+        </Text>
+      )}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  input: {
+  cell: {
     fontFamily: "AutourOne-Regular",
-    color: "#7A693C",
+    width: 66,
+    height: 76,
+    lineHeight: 76,
+    fontSize: 50,
+    borderRadius: 3,
+    borderColor: "#E0D0A7",
+    borderBottomWidth: 3,
     backgroundColor: "#FFF8E7",
-    borderRadius: 10,
-    padding: 10,
     textAlign: "center",
-    fontSize: 48,
-    letterSpacing: 20,
+    color: "#7A693C",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 0,
+    elevation: 1,
+  },
+  focusCell: {
+    backgroundColor: "#EADFC3",
+    color: "#51362F",
   },
 });
 

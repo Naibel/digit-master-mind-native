@@ -1,58 +1,29 @@
 import React from "react";
-import {
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 
-import { buttonStyle } from "../../../styles/buttons";
-
-const SuccessEndScreen = ({
-  navigation,
-  adversaryNumber,
-}: {
-  navigation: any;
-  adversaryNumber: number;
-}) => (
+const SuccessEndScreen = ({ adversaryNumber }: { adversaryNumber: number }) => (
   <SafeAreaView style={endStyles.content}>
-    <Text style={[endStyles.title, { marginBottom: 20 }]}>Bravo !</Text>
-    <Text style={endStyles.subtitle}>
-      Le numéro secret de votre adversaire était
-    </Text>
-    <Text style={[endStyles.title, { fontSize: 48, marginBottom: 20 }]}>
-      {adversaryNumber}
-    </Text>
-    <View style={endStyles.circle}>
+    <View>
       <Image
-        style={{ width: 235, height: 235 }}
-        source={require("../../../../assets/img/trophy.png")}
+        style={{
+          width: 235,
+          height: 235,
+          alignSelf: "center",
+          marginBottom: 20,
+        }}
+        source={require("../../../../assets/img/trophy_with_text.png")}
       />
-    </View>
-    <View style={{ flex: 1 }} />
-    <TouchableOpacity
-      style={[
-        buttonStyle.button,
-        buttonStyle.light,
-        buttonStyle.shadow,
-        buttonStyle.flexRow,
-      ]}
-      onPress={() =>
-        navigation.navigate("Home", {
-          startNewGame: true,
-        })
-      }
-    >
-      <Image
-        style={{ marginRight: 10 }}
-        source={require("../../../../assets/img/refresh.png")}
-      />
-      <Text style={[buttonStyle.lightText, buttonStyle.text]}>
-        On refait une partie ?
+      <Text style={endStyles.subtitle}>
+        Le numéro de votre adversaire était bien
       </Text>
-    </TouchableOpacity>
+      <Text style={[endStyles.title, { fontSize: 48, marginBottom: 20 }]}>
+        {adversaryNumber}
+      </Text>
+      <Text style={endStyles.subtitle}>
+        Vous avez deviné ce numéro au bout de{" "}
+        <Text style={{ fontSize: 24 }}>12</Text> tentatives !
+      </Text>
+    </View>
   </SafeAreaView>
 );
 
@@ -60,9 +31,12 @@ export default SuccessEndScreen;
 
 const endStyles = StyleSheet.create({
   content: {
-    alignContent: "center",
+    alignContent: "space-between",
     justifyContent: "space-between",
+    alignItems: "center",
     textAlign: "center",
+    paddingHorizontal: 40,
+    paddingTop: 30,
   },
   title: {
     fontFamily: "AutourOne-Regular",
@@ -75,18 +49,5 @@ const endStyles = StyleSheet.create({
     color: "white",
     fontSize: 15,
     textAlign: "center",
-  },
-  circle: {
-    padding: 20,
-    width: 275,
-    borderRadius: 500,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    marginBottom: 50,
-  },
-  buttonText: {
-    fontFamily: "AutourOne-Regular",
-    color: "#7A693C",
-    fontSize: 16,
-    marginLeft: 10,
   },
 });

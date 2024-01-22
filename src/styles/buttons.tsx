@@ -8,10 +8,10 @@ export const buttonStyle = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 5,
+      height: 3,
     },
     shadowOpacity: 0.2,
-    shadowRadius: 4,
+    shadowRadius: 3,
     elevation: 3,
   },
   dark: {

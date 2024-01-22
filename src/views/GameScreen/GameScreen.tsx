@@ -2,21 +2,24 @@ import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   ImageBackground,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  Image,
 } from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 import firestore from "@react-native-firebase/firestore";
 
 import usePlay from "../../hooks/usePlay";
-import { DigitInput } from "../../components";
+import { DigitInput, Keyboard } from "../../components";
 import { UserBStartGameModal } from "../Home/modals";
 import { SuccessEndScreen } from "./SuccessEndScreen";
 import { Attempts } from "./Attempts";
-import { buttonStyle } from "../../styles/buttons";
 import { FailureEndScreen } from "./FailureEndScreen";
-import { textStyle } from "../../styles/text";
+import checkDigit from "../../utils/checkDigit";
+import { buttonStyle } from "../../styles/buttons";
 
 const GameScreen = ({ route, navigation }: any) => {
   const { play } = usePlay();
@@ -149,120 +152,191 @@ const GameScreen = ({ route, navigation }: any) => {
     if (yourTurn) return "C'est ton tour !";
   };
 
+  const onAttemptChange = (newDigit: string) => {
+    checkDigit(newDigit, attempt, () => {
+      setAttempt(newDigit);
+    });
+  };
+
+  const onButtonPressedChange = (newNumber: string) => {
+    const newDigit = attempt + newNumber;
+    checkDigit(newDigit, attempt, () => {
+      setAttempt(newDigit);
+    });
+  };
+
   return (
-    <View style={styles.content}>
-      <ImageBackground
-        style={{
-          flex: 1,
-          position: "absolute",
-          width: "100%",
-          height: 270,
-          top: 0,
-        }}
-        source={require("../../../assets/img/clouds.png")}
-      ></ImageBackground>
-      <View style={{ paddingVertical: 60, paddingHorizontal: 48, flex: 1 }}>
-        {finished ? (
-          (mode === "start" && currentGame.a_win) ||
-          (mode === "join" && currentGame.b_win) ? (
-            <SuccessEndScreen
-              navigation={navigation}
-              adversaryNumber={
-                mode === "start" ? currentGame.b_digit : currentGame.a_digit
-              }
-            />
-          ) : (
-            <FailureEndScreen
-              navigation={navigation}
-              adversaryNumber={
-                mode === "start" ? currentGame.b_digit : currentGame.a_digit
-              }
-            />
-          )
-        ) : (
-          <>
-            {(mode === "start" || (mode == "join" && !currentGame.isOpen)) && (
-              <View
-                style={{
-                  backgroundColor: "rgba(0,0,0,0.3)",
-                  marginBottom: 20,
-                  borderRadius: 10,
-                  padding: 10,
-                }}
-              >
-                <Text style={styles.subtitle}>Votre numéro secret est</Text>
-                <Text style={styles.number}>
-                  {mode === "join" ? currentGame.b_digit : currentGame.a_digit}
-                </Text>
-                <Text
-                  style={[textStyle.white, textStyle.centered, textStyle.h5]}
-                >
-                  (Mais vous le dites pas, hein ?)
-                </Text>
-              </View>
-            )}
-            {turn && <Text style={[styles.subtitle]}>{getTurnMessage()}</Text>}
-            {mode === "start" && currentGame.isOpen ? (
-              <View>
-                <Text style={styles.text}>En attente d'un autre joueur...</Text>
-                <ActivityIndicator size="large" color="white" />
-              </View>
-            ) : (
-              <View>
-                {yourTurn && (
-                  <Text style={styles.text}>
-                    Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
-                  </Text>
-                )}
-                <View style={{ marginBottom: 20 }}>
-                  <Text style={[styles.subtitle, { marginBottom: 20 }]}>
-                    Devinez le numéro de votre adversaire !
-                  </Text>
-                  <DigitInput onDigitChange={setAttempt} />
-                  <TouchableOpacity
-                    style={[
-                      { marginTop: 20 },
-                      buttonStyle.button,
-                      buttonStyle.light,
-                      buttonStyle.shadow,
-                      isDisabled && buttonStyle.disabled,
-                    ]}
-                    disabled={isDisabled}
-                    onPress={handleAttempt}
-                  >
-                    <Text style={[buttonStyle.text, buttonStyle.lightText]}>
-                      Valider
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-                {/* <Progress value={timeleft * 10} /> */}
-                <Attempts
-                  userData={
-                    mode === "join"
-                      ? currentGame?.b_attempts
-                      : currentGame?.a_attempts
-                  }
-                />
-              </View>
-            )}
-          </>
-        )}
-      </View>
-      <ImageBackground
-        style={{ height: 200, zIndex: -1 }}
-        source={require("../../../assets/img/grass_bg_low.png")}
-      ></ImageBackground>
-      {mode === "join" && (
-        <UserBStartGameModal
-          route={route}
-          navigation={navigation}
-          visible={isModalOpen}
-          onClose={() => {
-            setIsModalOpen(false);
+    <LinearGradient
+      start={{ x: 0.2, y: 0.8 }}
+      end={{ x: 0.2, y: 0.805 }}
+      colors={["#78C6FF", "#3CBB50"]}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={styles.content}>
+        <ImageBackground
+          style={{
+            flex: 1,
+            position: "absolute",
+            width: "100%",
+            height: 270,
+            top: 0,
           }}
-        />
-      )}
-    </View>
+          source={require("../../../assets/img/clouds.png")}
+        ></ImageBackground>
+        <View
+          style={{
+            paddingTop: 20,
+            paddingHorizontal: 20,
+            flex: 1,
+            alignContent: "stretch",
+          }}
+        >
+          {finished ? (
+            (mode === "start" && currentGame.a_win) ||
+            (mode === "join" && currentGame.b_win) ? (
+              <SuccessEndScreen
+                adversaryNumber={
+                  mode === "start" ? currentGame.b_digit : currentGame.a_digit
+                }
+              />
+            ) : (
+              <FailureEndScreen
+                adversaryNumber={
+                  mode === "start" ? currentGame.b_digit : currentGame.a_digit
+                }
+              />
+            )
+          ) : (
+            <>
+              {(mode === "start" ||
+                (mode == "join" && !currentGame.isOpen)) && (
+                <View
+                  style={{
+                    backgroundColor: "rgba(0,0,0,0.3)",
+                    marginBottom: 20,
+                    borderRadius: 10,
+                    padding: 10,
+                  }}
+                >
+                  <Text style={styles.subtitle}>
+                    Votre numéro secret est{" "}
+                    {mode === "join"
+                      ? currentGame.b_digit
+                      : currentGame.a_digit}
+                  </Text>
+                </View>
+              )}
+              {turn && (
+                <Text
+                  style={[
+                    styles.subtitle,
+                    {
+                      marginBottom: 10,
+                    },
+                  ]}
+                >
+                  {getTurnMessage()}
+                </Text>
+              )}
+              {mode === "start" && currentGame.isOpen ? (
+                <View>
+                  <Text style={styles.text}>
+                    En attente d'un autre joueur...
+                  </Text>
+                  <ActivityIndicator size="large" color="white" />
+                </View>
+              ) : (
+                <View style={{ flex: 1, alignContent: "stretch" }}>
+                  {yourTurn && (
+                    <Text style={styles.text}>
+                      Il te reste {timeleft} seconde{timeleft > 1 && "s"}.
+                    </Text>
+                  )}
+                  <View
+                    style={{
+                      flex: 1,
+                      alignContent: "stretch",
+                      marginTop: 0,
+                      marginBottom: 20,
+                    }}
+                  >
+                    <Text style={[styles.text, { marginBottom: 10 }]}>
+                      Devinez le numéro de votre adversaire !{" "}
+                    </Text>
+                    <DigitInput
+                      noKeyboard
+                      digit={attempt}
+                      onDigitChange={onAttemptChange}
+                    />
+                    <Attempts
+                      userData={
+                        mode === "join"
+                          ? currentGame?.b_attempts
+                          : currentGame?.a_attempts
+                      }
+                    />
+                  </View>
+                </View>
+              )}
+            </>
+          )}
+        </View>
+        <ImageBackground
+          style={{
+            height: 200,
+            zIndex: -1,
+            paddingHorizontal: 20,
+            paddingBottom: 20,
+            justifyContent: "flex-end",
+          }}
+          source={require("../../../assets/img/grass_bg_low.png")}
+        >
+          {finished && (
+            <View>
+              <TouchableOpacity
+                style={[
+                  buttonStyle.button,
+                  buttonStyle.light,
+                  buttonStyle.shadow,
+                  buttonStyle.flexRow,
+                ]}
+                onPress={() =>
+                  navigation.navigate("Home", {
+                    startNewGame: true,
+                  })
+                }
+              >
+                <Image
+                  style={{ marginRight: 10 }}
+                  source={require("../../../assets/img/refresh.png")}
+                />
+                <Text style={[buttonStyle.lightText, buttonStyle.text]}>
+                  On refait une partie ?
+                </Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          {finished || (mode === "start" && currentGame.isOpen) ? null : (
+            <Keyboard
+              digit={attempt}
+              onButtonPress={onButtonPressedChange}
+              onValidPress={handleAttempt}
+              isDisabled={isDisabled}
+            />
+          )}
+        </ImageBackground>
+        {mode === "join" && (
+          <UserBStartGameModal
+            route={route}
+            navigation={navigation}
+            visible={isModalOpen}
+            onClose={() => {
+              setIsModalOpen(false);
+            }}
+          />
+        )}
+      </SafeAreaView>
+    </LinearGradient>
   );
 };
 
@@ -273,11 +347,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "stretch",
     textAlign: "center",
-    backgroundColor: "#78C6FF",
   },
   number: {
     fontFamily: "AutourOne-Regular",
-    fontSize: 62,
+    fontSize: 40,
     textAlign: "center",
     color: "white",
   },
@@ -292,6 +365,5 @@ const styles = StyleSheet.create({
     fontFamily: "AutourOne-Regular",
     textAlign: "center",
     color: "white",
-    marginBottom: 20,
   },
 });

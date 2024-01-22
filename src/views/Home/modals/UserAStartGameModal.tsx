@@ -53,7 +53,10 @@ const UserAStartGameModal = ({
       <Text style={textStyle.modalTitle}>
         Allez hop ! Donnez-nous votre numéro secret !
       </Text>
-      <DigitInput onDigitChange={onChange} />
+      <DigitInput
+        digit={value}
+        onDigitChange={(value: string) => setValue(value)}
+      />
       <View style={{ marginVertical: 20 }}>
         <Text style={textStyle.h6}>
           1. Choisissez un nombre à quatres chiffres.
