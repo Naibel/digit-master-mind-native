@@ -17,7 +17,7 @@ const DigitInput = ({
   onDigitChange: (value: string) => void;
 }) => {
   const [value, setValue] = useState("");
-  const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+  const ref = useBlurOnFulfill({ value: digit, cellCount: CELL_COUNT });
   const [props, getCellOnLayoutHandler] = useClearByFocusCell({
     value,
     setValue,
